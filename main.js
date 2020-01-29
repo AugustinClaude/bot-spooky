@@ -1,9 +1,9 @@
 const Discord = require("discord.js");
+const { TOKEN, PREFIX } = require("./config.js");
 const bot = new Discord.Client({
   disableEveryone: true,
   fetchAllMembers: true
 });
-const prefix = ",";
 
 bot.on("ready", () => {
   console.log(
@@ -12,11 +12,11 @@ bot.on("ready", () => {
 });
 
 bot.on("message", message => {
-  if (message.content === prefix + "help") {
+  if (message.content === PREFIX + "help") {
     message.channel.send(
-      `Mon préfix est \`${prefix}\`. Il n'y a que la commande \`${prefix}help\` pour le moment`
+      `Mon préfix est \`${PREFIX}\`. Il n'y a que la commande \`${PREFIX}help\` pour le moment`
     );
   }
 });
 
-bot.login("NjcyMTQxNTczMDc2ODExODE4.XjHKrQ.2kE0euXjQXnjYPdXe2YKbqxFEOI");
+bot.login(TOKEN);
