@@ -1,9 +1,9 @@
 const Discord = require("discord.js");
-const { TOKEN, PREFIX } = require("./config.js");
 const bot = new Discord.Client({
   disableEveryone: true,
   fetchAllMembers: true
 });
+require("dotenv").config();
 
 bot.on("ready", () => {
   console.log(
@@ -12,15 +12,16 @@ bot.on("ready", () => {
 });
 
 bot.on("message", message => {
-  if (!message.content.startsWith(PREFIX) || message.author.bot) return;
+  if (!message.content.startsWith(process.env.PREFIX) || message.author.bot)
+    return;
   const args = message.content.split(/ +/g);
   const command = args.shift().toLowerCase();
 
-  if (command === `${PREFIX}help`) {
+  if (command === `${process.env.PREFIX}help`) {
     message.channel.send(
-      `Mon préfix est \`${PREFIX}\`. Il n'y a que la commande \`${PREFIX}help\` pour le moment`
+      `Mon préfix est \`${process.env.PREFIX}\`. Il n'y a que la commande \`${process.env.PREFIX}help\` pour le moment`
     );
   }
 });
 
-bot.login(TOKEN);
+bot.login(process.env.TOKEN);

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Spokloo/bot-new#readme",
   "dependencies": {
-    "discord.js": "github:discordjs/discord.js"
+    "discord.js": "github:discordjs/discord.js",
+    "dotenv": "^8.2.0"
   }
 }
