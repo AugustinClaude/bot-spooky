@@ -12,7 +12,11 @@ bot.on("ready", () => {
 });
 
 bot.on("message", message => {
-  if (message.content === PREFIX + "help") {
+  if (!message.content.startsWith(PREFIX) || message.author.bot) return;
+  const args = message.content.split(/ +/g);
+  const command = args.shift().toLowerCase();
+
+  if (command === `${PREFIX}help`) {
     message.channel.send(
       `Mon préfix est \`${PREFIX}\`. Il n'y a que la commande \`${PREFIX}help\` pour le moment`
     );
