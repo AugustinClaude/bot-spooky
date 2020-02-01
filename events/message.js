@@ -78,9 +78,6 @@ module.exports = class {
           )
           .setThumbnail(this.client.user.displayAvatarURL())
           .setTitle("📕 Permissions non suffisantes")
-          .setDescription(
-            "📜 **Note :** Pour avoir un niveau de permission 1 (Mod) ou 2 (Staff), vous devez posséder sur votre serveur, un rôle du même nom."
-          )
           .addBlankField()
           .addField(
             "▶️ Votre niveau de permission",

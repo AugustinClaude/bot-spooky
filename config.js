@@ -15,9 +15,13 @@ const config = {
       check: message => {
         try {
           const modRole = message.guild.roles.find(
-            r => r.name.toLowerCase() === message.settings.modRole.toLowerCase() // modifier pour faire en sorte de détecter les perms en + des roles
+            r => r.name.toLowerCase() === message.settings.modRole.toLowerCase()
           );
-          if (modRole && message.member.roles.has(modRole.id)) return true;
+          if (
+            (modRole && message.member.roles.has(modRole.id)) ||
+            message.member.hasPermission("MANAGE_MESSAGES", "KICK_MEMBERS")
+          )
+            return true;
         } catch (e) {
           return false;
         }
@@ -32,7 +36,12 @@ const config = {
             r =>
               r.name.toLowerCase() === message.settings.adminRole.toLowerCase()
           );
-          if (adminRole && message.member.roles.has(adminRole.id)) return true;
+          if (
+            (adminRole && message.member.roles.has(adminRole.id)) ||
+            message.member.hasPermission("MANAGE_GUILD", "BAN_MEMBERS") ||
+            message.member.hasPermission("ADMINISTRATOR")
+          )
+            return true;
         } catch (e) {
           return false;
         }
