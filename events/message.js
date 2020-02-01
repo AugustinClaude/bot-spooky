@@ -46,13 +46,36 @@ module.exports = class {
 
     if (level < this.client.levelCache[cmd.conf.permLevel]) {
       if (settings.systemNotice === "true") {
-        return message.channel.send(
-          `:x: **Vous n'avez pas la permission pour utiliser cette commande.**\n\n:arrow_right: Votre niveau de **permission** est \`${level} => ${
-            this.client.config.permLevels.find(l => l.level === level).name
-          }\`\n:white_check_mark: Cette commande requiert le niveau de **permission** \`${
-            this.client.levelCache[cmd.conf.permLevel]
-          } => ${cmd.conf.permLevel}\``
-        );
+        const permEmbed = new MessageEmbed()
+          .setAuthor(
+            this.client.user.username + " ©",
+            this.client.user.displayAvatarURL()
+          )
+          .setThumbnail(this.client.user.displayAvatarURL())
+          .setTitle("📕 Permissions non suffisantes")
+          .setDescription(
+            "📜 **Note :** Pour avoir un niveau de permission 1 (Mod) ou 2 (Staff), vous devez posséder sur votre serveur, un rôle du même nom."
+          )
+          .addBlankField()
+          .addField(
+            "▶️ Votre niveau de permission",
+            `**Niveau :** ${level} | **Nom :** ${
+              this.client.config.permLevels.find(l => l.level === level).name
+            }`
+          )
+          .addField(
+            ":white_check_mark: Permissions requises",
+            `**Niveau :** ${
+              this.client.levelCache[cmd.conf.permLevel]
+            } | **Nom :** ${cmd.conf.permLevel}`
+          )
+          .setColor("#9988ff")
+          .setFooter(
+            `Demandé par ${message.author.tag}`,
+            message.author.displayAvatarURL()
+          )
+          .setTimestamp();
+        return message.channel.send(permEmbed);
       } else {
         return;
       }

@@ -1,4 +1,4 @@
-const Command = require("../../modules/Command.js");
+const Command = require("../modules/Command.js");
 const { MessageEmbed } = require("discord.js");
 
 class Help extends Command {
@@ -64,7 +64,7 @@ class Help extends Command {
       "La liste des commandes n'est pas disponible pour le moment",
       "La liste des commandes n'est pas disponible pour le moment",
       "La liste des commandes n'est pas disponible pour le moment",
-      "La liste des commandes n'est pas disponible pour le moment"
+      "`reboot`"
     ];
     let arrColor = [
       "#88eef7",

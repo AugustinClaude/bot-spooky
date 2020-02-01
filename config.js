@@ -15,7 +15,7 @@ const config = {
       check: message => {
         try {
           const modRole = message.guild.roles.find(
-            r => r.name.toLowerCase() === message.settings.modRole.toLowerCase()
+            r => r.name.toLowerCase() === message.settings.modRole.toLowerCase() // modifier pour faire en sorte de détecter les perms en + des roles
           );
           if (modRole && message.member.roles.has(modRole.id)) return true;
         } catch (e) {
@@ -40,7 +40,7 @@ const config = {
     },
     {
       level: 3,
-      name: "Owner",
+      name: "Bot Owner",
       check: message => message.client.appInfo.owner.id === message.author.id
     }
   ]
