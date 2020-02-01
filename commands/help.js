@@ -12,11 +12,15 @@ class Help extends Command {
   }
 
   async run(message, args) {
+    const cmd =
+      this.client.commands.get(args[0]) ||
+      this.client.commands.get(this.client.aliases.get(args[0]));
+
     // Embed général
     const help = new MessageEmbed()
       .setAuthor(
-        this.client.user.username + " ©",
-        this.client.user.displayAvatarURL()
+        `Demandé par ${message.author.tag}`,
+        message.author.displayAvatarURL({ dynamic: true })
       )
       .setThumbnail(this.client.user.displayAvatarURL())
       .setTitle("🔧 Voici la liste des catégories de commandes !")
@@ -26,8 +30,8 @@ class Help extends Command {
       .addBlankField()
       .setColor("#80aaff")
       .setFooter(
-        `Demandé par ${message.author.tag}`,
-        message.author.displayAvatarURL()
+        this.client.user.username + " ©",
+        this.client.user.displayAvatarURL()
       )
       .setTimestamp();
 
@@ -59,12 +63,12 @@ class Help extends Command {
       "📛 Modération"
     ];
     let arrList = [
-      "`help`, `perm`",
+      "`help`, `perm`, `ping`",
       "La liste des commandes n'est pas disponible pour le moment",
       "La liste des commandes n'est pas disponible pour le moment",
       "La liste des commandes n'est pas disponible pour le moment",
       "La liste des commandes n'est pas disponible pour le moment",
-      "`reboot`"
+      "`clear`, `reboot`"
     ];
     let arrColor = [
       "#88eef7",
@@ -96,8 +100,8 @@ class Help extends Command {
     ) {
       arrEmbed[i]
         .setAuthor(
-          this.client.user.username + " ©",
-          this.client.user.displayAvatarURL()
+          `Demandé par ${message.author.tag}`,
+          message.author.displayAvatarURL({ dynamic: true })
         )
         .setThumbnail(this.client.user.displayAvatarURL())
         .setDescription(
@@ -108,13 +112,13 @@ class Help extends Command {
         .addBlankField()
         .setColor(`${arrColor[i]}`)
         .setFooter(
-          `Demandé par ${message.author.tag}`,
-          message.author.displayAvatarURL()
+          this.client.user.username + " ©",
+          this.client.user.displayAvatarURL()
         )
         .setTimestamp();
     }
 
-    // Envoi embed général -----------------------------------
+    // Envoi embed général
     if (!args[0]) {
       try {
         await message.author.send(help);
@@ -155,6 +159,7 @@ class Help extends Command {
       }
     }
 
+    // Help commande
     if (
       args[0] !== "here" &&
       args[0] !== "info" &&
@@ -173,14 +178,22 @@ class Help extends Command {
         const descEmbed = new MessageEmbed()
           .setAuthor(
             "Demandé par " + message.author.tag,
-            message.author.displayAvatarURL()
+            message.author.displayAvatarURL({ dynamic: true })
           )
           .setThumbnail(this.client.user.displayAvatarURL())
           .setTitle(
             `🔧 Commande : ${this.client.config.defaultSettings.prefix}${command.help.name}`
           )
           .setDescription(
-            `❱ **Description :** ${command.help.description}\n❱ **Utilisation :** \`${this.client.config.defaultSettings.prefix}${command.help.usage}\`\n❱ **Aliases :** ${aliases}`
+            `❱ **Description :** ${
+              command.help.description
+            }\n❱ **Utilisation :** \`${
+              this.client.config.defaultSettings.prefix
+            }${
+              command.help.usage
+            }\`\n❱ **Aliases :** ${aliases}\n❱ **Permissions requises :** ${
+              this.client.levelCache[cmd.conf.permLevel]
+            } | ${cmd.conf.permLevel}`
           )
           .setColor("#99ccff")
           .setFooter(

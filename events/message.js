@@ -13,8 +13,7 @@ module.exports = class {
         .setDescription(
           "⛔️ Cette commande n'est utilisable que sur serveur ! ⛔️"
         );
-      message.author.send(errorEmbed);
-      return;
+      return message.author.send(errorEmbed);
     }
 
     if (
@@ -26,7 +25,33 @@ module.exports = class {
     const settings = this.client.getSettings(message.guild);
     message.settings = settings;
 
-    if (message.content.indexOf(settings.prefix) !== 0) return;
+    if (message.content.indexOf(settings.prefix) !== 0) {
+      // Mention bot => préfix
+
+      var spooky = false;
+      let mentionned = message.guild.member(message.mentions.users.first());
+      if (mentionned && mentionned.id == "672141573076811818") spooky = true;
+
+      if (spooky == true) {
+        const prefEmbed = new MessageEmbed()
+          .setAuthor(
+            `Demandé par ${message.author.tag}`,
+            message.author.displayAvatarURL({ dynamic: true })
+          )
+          .setThumbnail(this.client.user.displayAvatarURL())
+          .setDescription(
+            `💻 **Préfix :** \`${this.client.config.defaultSettings.prefix}\``
+          )
+          .setColor("#ddaaff")
+          .setFooter(
+            this.client.user.username + " ©",
+            this.client.user.displayAvatarURL()
+          )
+          .setTimestamp();
+        return message.channel.send(prefEmbed);
+      }
+      return;
+    }
 
     const args = message.content
       .slice(settings.prefix.length)
@@ -48,8 +73,8 @@ module.exports = class {
       if (settings.systemNotice === "true") {
         const permEmbed = new MessageEmbed()
           .setAuthor(
-            this.client.user.username + " ©",
-            this.client.user.displayAvatarURL()
+            `Demandé par ${message.author.tag}`,
+            message.author.displayAvatarURL({ dynamic: true })
           )
           .setThumbnail(this.client.user.displayAvatarURL())
           .setTitle("📕 Permissions non suffisantes")
@@ -69,10 +94,10 @@ module.exports = class {
               this.client.levelCache[cmd.conf.permLevel]
             } | **Nom :** ${cmd.conf.permLevel}`
           )
-          .setColor("#9988ff")
+          .setColor("#9977ff")
           .setFooter(
-            `Demandé par ${message.author.tag}`,
-            message.author.displayAvatarURL()
+            this.client.user.username + " ©",
+            this.client.user.displayAvatarURL()
           )
           .setTimestamp();
         return message.channel.send(permEmbed);

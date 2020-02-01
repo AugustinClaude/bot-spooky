@@ -5,7 +5,7 @@ class Perm extends Command {
   constructor(client) {
     super(client, {
       name: "perm",
-      description: "Affiche votre niveau de permission.",
+      description: "Affiche votre niveau de permission",
       usage: "perm",
       guildOnly: true,
       aliases: ["perms", "myperm", "permission"]
@@ -17,8 +17,8 @@ class Perm extends Command {
       .name;
     const permEmbed = new MessageEmbed()
       .setAuthor(
-        this.client.user.username + " ©",
-        this.client.user.displayAvatarURL()
+        `Demandé par ${message.author.tag}`,
+        message.author.displayAvatarURL({ dynamic: true })
       )
       .setThumbnail(this.client.user.displayAvatarURL())
       .setDescription(
@@ -30,8 +30,8 @@ class Perm extends Command {
       .addField("✏️ Nom de la permission", perm)
       .setColor("#9988ff")
       .setFooter(
-        `Demandé par ${message.author.tag}`,
-        message.author.displayAvatarURL()
+        this.client.user.username + " ©",
+        this.client.user.displayAvatarURL()
       )
       .setTimestamp();
     message.channel.send(permEmbed);

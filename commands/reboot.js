@@ -4,7 +4,7 @@ class Reboot extends Command {
   constructor(client) {
     super(client, {
       name: "reboot",
-      description: "Redémarrage du bot.",
+      description: "Redémarrage du bot",
       usage: "reboot",
       permLevel: "Bot Owner",
       aliases: ["restart", "reload"]
