@@ -68,7 +68,7 @@ class Help extends Command {
       "La liste des commandes n'est pas disponible pour le moment",
       "La liste des commandes n'est pas disponible pour le moment",
       "La liste des commandes n'est pas disponible pour le moment",
-      "`clear`, `reboot`"
+      "`clear`, `reboot`, `eval`"
     ];
     let arrColor = [
       "#88eef7",
