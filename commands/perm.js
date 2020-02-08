@@ -21,9 +21,6 @@ class Perm extends Command {
         message.author.displayAvatarURL({ dynamic: true })
       )
       .setThumbnail(this.client.user.displayAvatarURL())
-      .setDescription(
-        "📜 **Note :** Pour avoir un niveau de permission 1 (Mod) ou 2 (Staff), vous devez posséder sur votre serveur, un rôle du même nom."
-      )
       .setTitle("📕 Permissions")
       .addBlankField()
       .addField("▶️ Niveau de permission", level)
