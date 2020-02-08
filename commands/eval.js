@@ -12,8 +12,9 @@ class Eval extends Command {
     });
   }
 
-  run(message, args, level) {
+  run(message, args) {
     var input = args.join(" ");
+    let output;
     if (input == "") input = "❌ Input invalide";
 
     const codeEmbed = new MessageEmbed()
@@ -31,14 +32,13 @@ class Eval extends Command {
       .setTimestamp();
 
     try {
-      var output = eval(input);
-      codeEmbed.addField("📤 Output", `\`\`\`js\n${output}\n\`\`\``);
-      message.channel.send(codeEmbed);
+      output = eval(input);
     } catch (e) {
-      var output = e;
-      codeEmbed.addField("📤 Output", `\`\`\`js\n${output}\n\`\`\``);
-      message.channel.send(codeEmbed);
+      output = e;
     }
+
+    codeEmbed.addField("📤 Output", `\`\`\`js\n${output}\n\`\`\``);
+    message.channel.send(codeEmbed);
   }
 }
 

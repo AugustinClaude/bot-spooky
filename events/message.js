@@ -86,7 +86,7 @@ module.exports = class {
             }`
           )
           .addField(
-            ":white_check_mark: Permissions requises",
+            "<:Warn:675783882469015632> Permissions requises",
             `**Niveau :** ${
               this.client.levelCache[cmd.conf.permLevel]
             } | **Nom :** ${cmd.conf.permLevel}`
