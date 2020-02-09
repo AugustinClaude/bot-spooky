@@ -36,6 +36,8 @@ class Math extends Command {
       result = "❌ Le calcul n'a pas pu être fait";
     }
 
+    if (result == "Infinity") result = "❌ Le calcul n'a pas pu être fait";
+
     mathembed
       .addField("📥 Calcul", `\`\`\`js\n${input}\`\`\``)
       .addField("📤 Résultat", `\`\`\`js\n${result}\`\`\``);
