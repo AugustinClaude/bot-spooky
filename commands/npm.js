@@ -57,6 +57,7 @@ class Npm extends Command {
           "https://i.imgur.com/ErKf5Y0.png"
         )
         .setThumbnail("https://i.imgur.com/8DKwbhj.png")
+        .setTimestamp()
         .addField(
           "● Description",
           `${version.description || ":x: Aucune description."}\n\u200B`
