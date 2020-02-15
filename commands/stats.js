@@ -39,6 +39,7 @@ class Stats extends Command {
         this.client.user.username + " ©",
         this.client.user.displayAvatarURL()
       )
+      .setTimestamp()
       .setTitle("🗂 Statistiques")
       .addField(
         "📥 Memory",
