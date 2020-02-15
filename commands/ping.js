@@ -12,7 +12,6 @@ class Ping extends Command {
   }
 
   async run(message) {
-    message.delete();
     const m = await message.channel.send("🏓 Ping!");
     const pingEmbed = new MessageEmbed()
       .setColor("#aa4411")

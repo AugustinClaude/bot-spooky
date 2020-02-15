@@ -14,7 +14,7 @@ module.exports = class {
     }, 60000);
 
     const users = [];
-    var nb = 0;
+    let nb = 0;
     this.client.guilds.array().forEach(guild => {
       users.push(guild.memberCount);
     });
