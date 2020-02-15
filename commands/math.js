@@ -36,7 +36,7 @@ class Math extends Command {
       result = "❌ Le calcul n'a pas pu être fait";
     }
 
-    if (result == "Infinity") result = "❌ Le calcul n'a pas pu être fait";
+    if (input.includes("/0")) result = "❌ La division par 0 est impossible !";
 
     mathembed
       .addField("📥 Calcul", `\`\`\`js\n${input}\`\`\``)
