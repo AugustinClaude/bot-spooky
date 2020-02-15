@@ -63,7 +63,7 @@ class Help extends Command {
       "📛 Modération"
     ];
     let arrList = [
-      "`help`, `perm`, `ping`, `stats`",
+      "`help`, `perm`, `ping`, `stats`, `weather`",
       "`math`",
       "La liste des commandes n'est pas disponible pour le moment",
       "La liste des commandes n'est pas disponible pour le moment",
