@@ -13,7 +13,7 @@ class Eval extends Command {
   }
 
   run(message, args) {
-    var input = args.join(" ");
+    let input = args.join(" ");
     let output;
     if (input == "") input = "❌ Input invalide";
 

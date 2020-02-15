@@ -24,9 +24,9 @@ class Weather extends Command {
         );
         return;
       }
-      var current = result[0].current;
-      var location = result[0].location;
-      var UTC;
+      let current = result[0].current;
+      let location = result[0].location;
+      let UTC;
 
       if (location.timezone.startsWith("-")) UTC = `UTC${location.timezone}:00`;
       else UTC = `UTC+${location.timezone}:00`;

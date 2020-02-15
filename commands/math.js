@@ -13,7 +13,7 @@ class Math extends Command {
   }
 
   run(message, args) {
-    var input = args.join(" ");
+    let input = args.join(" ");
     let result;
     if (input == "") input = "❌ Expression invalide";
 

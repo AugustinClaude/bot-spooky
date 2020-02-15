@@ -28,7 +28,7 @@ module.exports = class {
     if (message.content.indexOf(settings.prefix) !== 0) {
       // Mention bot => préfix
 
-      var spooky = false;
+      let spooky = false;
       let mentionned = message.guild.member(message.mentions.users.first());
       if (mentionned && mentionned.id == "672141573076811818") spooky = true;
 
