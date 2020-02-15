@@ -172,7 +172,8 @@ class Help extends Command {
       let command = args[0];
       if (this.client.commands.has(command)) {
         command = this.client.commands.get(command);
-        if (command.conf.aliases.join(", ") == "") let aliases = "❌";
+        let aliases;
+        if (command.conf.aliases.join(", ") == "") aliases = "❌";
         else aliases = command.conf.aliases.join(", ");
 
         const descEmbed = new MessageEmbed()
