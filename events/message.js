@@ -31,11 +31,7 @@ module.exports = class {
     if (mentionned && mentionned.id == "672141573076811818") spooky = true;
 
     // Ignorer le message s'il ne commence pas par le préfix
-    if (
-      message.content.indexOf(settings.prefix) !== 0 &&
-      !message.content.startsWith(";") &&
-      spooky == false
-    )
+    if (message.content.indexOf(settings.prefix) !== 0 && spooky == false)
       return;
 
     // Mention bot => préfix
@@ -56,9 +52,14 @@ module.exports = class {
       return message.channel.send(prefEmbed);
     }
 
+    // Détecte si la longueur du préfix selon s'il correspond à la mention du bot ou non
+    let prefixL;
+    if (spooky == true) prefixL = 22;
+    else prefixL = settings.prefix.length;
+
     // Setup args etc...
     const args = message.content
-      .slice(settings.prefix.length)
+      .slice(prefixL)
       .trim()
       .split(/ +/g);
     const command = args.shift().toLowerCase();
