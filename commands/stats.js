@@ -20,7 +20,7 @@ class Stats extends Command {
 
     const users = [];
     let nb = 0;
-    this.client.guilds.array().forEach(guild => {
+    this.client.guilds.cache.array().forEach(guild => {
       users.push(guild.memberCount);
     });
     users.forEach(n => {
@@ -51,12 +51,12 @@ class Stats extends Command {
       .addField("🍪 Users", `**${nb.toLocaleString()}**`, true)
       .addField(
         "💬 Channels",
-        `**${this.client.channels.size.toLocaleString()}**`,
+        `**${this.client.channels.cache.size.toLocaleString()}**`,
         true
       )
       .addField(
         "🌐 Guilds",
-        `**${this.client.guilds.size.toLocaleString()}**`,
+        `**${this.client.guilds.cache.size.toLocaleString()}**`,
         true
       )
       .addBlankField()

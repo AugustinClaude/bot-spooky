@@ -28,10 +28,11 @@ class Cmd extends Command {
       await message.channel.send(
         `📥 Voici le code source de la commande ${file} !\n\`\`\`js\n${cmd}\n\`\`\``
       );
-      message.delete(500);
+      message.delete({ timeout: 500 });
     } catch (e) {
+      console.log(e);
       message.channel.send(
-        `:x: Une erreur est survenue ! Soit le nom du fichier en .js est incorrect, soit le nombre de caractère est dépassé, soit la syntaxe est incorrecte !\n **Syntaxe :** ${this.client.config.defaultSettings.prefix}cmd [fichier.js]`
+        `:x: Une erreur est survenue ! La principale cause est probablement le dépassement des 2000 caractères de la commande. Sinon, il est possible que la syntaxe soit incorrecte ou encore que le nom du fichier soit incorrect.`
       );
     }
   }

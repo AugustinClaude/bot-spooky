@@ -15,7 +15,7 @@ module.exports = class {
 
     const users = [];
     let nb = 0;
-    this.client.guilds.array().forEach(guild => {
+    this.client.guilds.cache.array().forEach(guild => {
       users.push(guild.memberCount);
     });
     users.forEach(n => {
@@ -41,10 +41,10 @@ module.exports = class {
       `= ${
         this.client.user.username
       } est en ligne ! =\n= ${nb} utilisateurs =\n= ${
-        this.client.channels.size
+        this.client.channels.cache.size
       } channels =\n= ${
-        this.client.guilds.size
-      } serveurs :\n - ${this.client.guilds
+        this.client.guilds.cache.size
+      } serveurs :\n - ${this.client.guilds.cache
         .array()
         .map(g => g)
         .join("\n - ")}`,
