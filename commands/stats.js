@@ -42,7 +42,7 @@ class Stats extends Command {
       .setTimestamp()
       .setTitle("🗂 Statistiques")
       .addField(
-        "📥 Memory",
+        "📥 Mémoire utilisée",
         `**${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}** MB`,
         true
       )
