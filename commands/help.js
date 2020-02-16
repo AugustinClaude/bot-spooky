@@ -6,7 +6,7 @@ class Help extends Command {
     super(client, {
       name: "help",
       description: "Affiche le menu d'aide",
-      usage: `help [catégorie] [here] ou help [commande]`,
+      usage: `help [catégorie] [dm] ou help [commande]`,
       aliases: ["aide"]
     });
   }
@@ -83,7 +83,7 @@ class Help extends Command {
     for (let i = 0; i < arrField.length && i < arrCmd.length; i++) {
       help.addField(
         `${arrField[i]}`,
-        `\`\`${this.client.config.defaultSettings.prefix}help ${arrCmd[i]} [here]\`\``,
+        `\`\`${this.client.config.defaultSettings.prefix}help ${arrCmd[i]} [dm]\`\``,
         true
       );
     }
@@ -120,6 +120,8 @@ class Help extends Command {
 
     // Envoi embed général
     if (!args[0]) {
+      message.channel.send(help);
+    } else if (args[0] == "dm") {
       try {
         await message.author.send(help);
         message.reply(
@@ -131,8 +133,6 @@ class Help extends Command {
         );
         message.channel.send(help);
       }
-    } else if (args[0] == "here") {
-      message.channel.send(help);
     }
 
     // Envoi embeds catégories
@@ -142,6 +142,9 @@ class Help extends Command {
       i++
     ) {
       if (args[0] == arrCmd[i] && !args[1]) {
+        message.channel.send(arrEmbed[i]);
+      }
+      if (args[0] == arrCmd[i] && args[1] == "dm") {
         try {
           await message.author.send(arrEmbed[i]);
           message.reply(
@@ -154,14 +157,11 @@ class Help extends Command {
           message.channel.send(arrEmbed[i]);
         }
       }
-      if (args[0] == arrCmd[i] && args[1] == "here") {
-        message.channel.send(arrEmbed[i]);
-      }
     }
 
     // Help commande
     if (
-      args[0] !== "here" &&
+      args[0] !== "dm" &&
       args[0] !== "info" &&
       args[0] !== "use" &&
       args[0] !== "fun" &&
