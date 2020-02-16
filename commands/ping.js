@@ -12,6 +12,9 @@ class Ping extends Command {
   }
 
   async run(message) {
+    const msg = message.editedTimestamp
+      ? message.editedTimestamp
+      : message.createdTimestamp;
     const m = await message.channel.send("🏓 Ping!");
     const pingEmbed = new MessageEmbed()
       .setColor("#aa4411")
@@ -30,7 +33,7 @@ class Ping extends Command {
       )
       .addField(
         "⏳ Temps de réponse",
-        `**${m.createdTimestamp - message.createdTimestamp}** ms`,
+        `**${m.createdTimestamp - msg}** ms`,
         true
       )
       .addField(
