@@ -25,34 +25,38 @@ module.exports = class {
     const settings = this.client.getSettings(message.guild);
     message.settings = settings;
 
-    if (message.content.indexOf(settings.prefix) !== 0) {
-      // Mention bot => préfix
+    // Détecte la mention du bot
+    let spooky = false;
+    let mentionned = message.guild.member(message.mentions.users.first());
+    if (mentionned && mentionned.id == "672141573076811818") spooky = true;
 
-      let spooky = false;
-      let mentionned = message.guild.member(message.mentions.users.first());
-      if (mentionned && mentionned.id == "672141573076811818") spooky = true;
-
-      if (spooky == true) {
-        const prefEmbed = new MessageEmbed()
-          .setAuthor(
-            `Demandé par ${message.author.tag}`,
-            message.author.displayAvatarURL({ dynamic: true })
-          )
-          .setThumbnail(this.client.user.displayAvatarURL())
-          .setDescription(
-            `💻 **Préfix :** \`${this.client.config.defaultSettings.prefix}\``
-          )
-          .setColor("#ddaaff")
-          .setFooter(
-            this.client.user.username + " ©",
-            this.client.user.displayAvatarURL()
-          )
-          .setTimestamp();
-        return message.channel.send(prefEmbed);
-      }
+    // Ignorer le message s'il ne commence pas par le préfix
+    if (
+      message.content.indexOf(settings.prefix) !== 0 &&
+      !message.content.startsWith(";") &&
+      spooky == false
+    )
       return;
+
+    // Mention bot => préfix
+    if (spooky == true && message.content.length == 22) {
+      const prefEmbed = new MessageEmbed()
+        .setAuthor(
+          `Demandé par ${message.author.tag}`,
+          message.author.displayAvatarURL({ dynamic: true })
+        )
+        .setThumbnail(this.client.user.displayAvatarURL())
+        .setDescription(`💻 **Préfix :** \`${settings.prefix}\``)
+        .setColor("#ddaaff")
+        .setFooter(
+          this.client.user.username + " ©",
+          this.client.user.displayAvatarURL()
+        )
+        .setTimestamp();
+      return message.channel.send(prefEmbed);
     }
 
+    // Setup args etc...
     const args = message.content
       .slice(settings.prefix.length)
       .trim()
