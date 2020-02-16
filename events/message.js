@@ -61,7 +61,7 @@ module.exports = class {
     const command = args.shift().toLowerCase();
 
     // Détection de la modification d'un message
-    console.log("bla");
+    // console.log("bla");
 
     // Ignore le message s'il ne commence pas par le préfix
     if (message.content.indexOf(settings.prefix) !== 0 && spooky == false)
