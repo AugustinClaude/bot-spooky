@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/Spokloo/bot-new#readme",
   "dependencies": {
-    "@discordjs/opus": "^0.1.0",
     "better-sqlite-pool": "^0.2.3",
     "body-parser": "^1.19.0",
     "chalk": "^3.0.0",
@@ -45,6 +44,6 @@
     "through2": "^3.0.1",
     "weather-js": "^2.0.0",
     "ytdl-core": "^1.0.7",
-    "ytdl-core-discord": "amishshah/ytdl-core-discord"
+    "ytdl-core-discord": "^1.1.0"
   }
 }
