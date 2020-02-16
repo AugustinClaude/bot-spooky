@@ -30,10 +30,6 @@ module.exports = class {
     let mentionned = message.guild.member(message.mentions.users.first());
     if (mentionned && mentionned.id == "672141573076811818") spooky = true;
 
-    // Ignorer le message s'il ne commence pas par le préfix
-    if (message.content.indexOf(settings.prefix) !== 0 && spooky == false)
-      return;
-
     // Mention bot => préfix
     if (spooky == true && message.content.length == 22) {
       const prefEmbed = new MessageEmbed()
@@ -57,13 +53,21 @@ module.exports = class {
     if (spooky == true) prefixL = 22;
     else prefixL = settings.prefix.length;
 
-    // Setup args etc...
+    // Setup args
     const args = message.content
       .slice(prefixL)
       .trim()
       .split(/ +/g);
     const command = args.shift().toLowerCase();
 
+    // Détection de la modification d'un message
+    console.log("bla");
+
+    // Ignore le message s'il ne commence pas par le préfix
+    if (message.content.indexOf(settings.prefix) !== 0 && spooky == false)
+      return;
+
+    // Setup cmd et permLevel
     if (message.guild && !message.member)
       await message.guild.fetchMember(message.author);
 

@@ -65,7 +65,7 @@ class Help extends Command {
     let arrList = [
       "`help`, `perm`, `ping`, `stats`, `weather`, `npm`",
       "`math`",
-      "La liste des commandes n'est pas disponible pour le moment",
+      "`say`",
       "La liste des commandes n'est pas disponible pour le moment",
       "La liste des commandes n'est pas disponible pour le moment",
       "`clear`, `reboot`, `eval`, `cmd`"
