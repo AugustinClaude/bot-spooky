@@ -55,7 +55,7 @@ class Help extends Command {
       "de modération"
     ];
     let arrField = [
-      "🌐 Info",
+      "🌐 Informations",
       "⚙️ Utile",
       "🎉 Fun",
       "🎵 Musique",
