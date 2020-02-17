@@ -16,57 +16,61 @@ class Userinfo extends Command {
     moment.locale("fr");
 
     // Mention d'utilisateur / id / pseudo, hashtag
-    let user = message.guild.member(
-      message.mentions.users.first() ||
-        message.guild.members.cache.get(args[0]) ||
-        this.client.users.cache.find(u =>
-          u.tag.toLowerCase().includes(args[0].toLowerCase())
-        )
-    );
-    if (!args[0]) user = message.author;
-    else if (!user)
-      return message.channel.send(":x: L'utilisateur n'existe pas !");
+    let user;
+    try {
+      user = message.guild.member(
+        message.mentions.users.first() ||
+          message.guild.members.cache.get(args[0]) ||
+          this.client.users.cache.find(u =>
+            u.tag.toLowerCase().includes(args[0].toLowerCase())
+          )
+      );
+      if (!args[0]) user = message.author;
+      else if (!user)
+        return message.channel.send(":x: L'utilisateur n'existe pas !");
+    } catch (e) {
+      user = message.author;
+    }
 
     // Définition des variables
+    let pseudo = user.username;
+    let discriminator = user.discriminator;
+    let nickname = user.nickname;
+    let id = user.id;
+    let activity = user.presence.activities.name || ":x: Ne joue à rien";
+    let nbRoles = user.roles.cache.size - 1;
+    let highestRole = user.roles.highest;
+    let joined = moment(user.joinedAt).format("Do MMMM YYYY, LTS");
+    let created = moment(user.createdAt).format("Do MMMM YYYY, LTS");
+
     let isBot;
     if (user.bot == true) isBot = "🤖 Bot";
     else isBot = "😁 Humain";
-    /*
-    let checkbot;
-    if (getvalueof.bot == true) {
-      checkbot = "🤖 Bot";
-    } else {
-      checkbot = "😁 Humain";
-    }
-
-    if (!mentionned) {
-      return message.channel.send("L'utilisateur n'existe pas !");
-    }
 
     let status;
-    if (mentionned.presence.status == "online") {
+    if (user.presence.status == "online") {
       status = "<:online:492774463398477834> En ligne";
-    } else if (mentionned.presence.status == "offline") {
+    } else if (user.presence.status == "offline") {
       status = "<:offline:492994318072807424> Hors ligne";
-    } else if (mentionned.presence.status == "idle") {
+    } else if (user.presence.status == "idle") {
       status = "<:idle:492993972277608448> Inactif";
-    } else if (mentionned.presence.status == "dnd") {
+    } else if (user.presence.status == "dnd") {
       status = "<:dnd:492774462400364556> Ne pas déranger";
-    } else if (mentionned.presence.status == "streaming") {
+    } else if (user.presence.status == "streaming") {
       status = "<:streaming:492994618942685214> Streaming";
     }
 
     let roles;
-    if (mentionned.roles.size == 1) {
-      roles = ":x: Aucun rôles";
-    } else {
-      roles = `- ${mentionned.roles.cache
-        .filter(role => role.id !== message.guild.id)
+    if (user.roles.cache.size == 1) roles = ":x: Aucun rôle";
+    else {
+      roles = `- ${user.roles.cache
+        .filter(r => r.id !== message.guild.id)
         .array()
         .map(g => g)
         .join("\n- ")}`;
     }
 
+    /*
     try {
       const userEmbed = new MessageEmbed()
         .setColor("#b7db24")
