@@ -48,14 +48,14 @@ class Stats extends Command {
       )
       .addField("⬆ Uptime", `**${duration}**`, true)
       .addBlankField()
-      .addField("🍪 Users", `**${nb.toLocaleString()}**`, true)
+      .addField("🍪 Utilisateurs", `**${nb.toLocaleString()}**`, true)
       .addField(
         "💬 Channels",
         `**${this.client.channels.cache.size.toLocaleString()}**`,
         true
       )
       .addField(
-        "🌐 Guilds",
+        "🌐 Serveurs",
         `**${this.client.guilds.cache.size.toLocaleString()}**`,
         true
       )

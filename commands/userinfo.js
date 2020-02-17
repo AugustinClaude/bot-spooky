@@ -61,14 +61,24 @@ class Userinfo extends Command {
     }
 
     let roles;
-    if (user.roles.cache.size == 1) roles = ":x: Aucun rôle";
+    let disp = false;
+    if (nbRoles == 0) roles = ":x: Aucun rôle";
     else {
-      roles = `- ${user.roles.cache
+      roles = `${user.roles.cache
         .filter(r => r.id !== message.guild.id)
         .array()
         .map(g => g)
-        .join("\n- ")}`;
+        .join(", ")}`;
+
+      if (roles.length > 1024) {
+        roles = `:x: Trop de rôles (${nbRoles})`;
+        disp = true;
+      }
     }
+
+    let dispRoles;
+    if (disp == true) dispRoles = "";
+    else dispRoles = `[${nbRoles == 1 ? " rôle" : " rôles"}]`;
 
     /*
     try {
