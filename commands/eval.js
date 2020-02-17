@@ -16,7 +16,7 @@ class Eval extends Command {
     let input = args.join(" ");
     let output;
     if (input == "") input = "❌ Input invalide";
-    if (input.includes("process.env.TOKEN"))
+    if (input.toLowerCase().includes("TOKEN".toLowerCase()))
       return message.channel.send(":x: Je ne peux pas montrer mon token !");
 
     const codeEmbed = new MessageEmbed()
