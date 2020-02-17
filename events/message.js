@@ -16,25 +16,19 @@ module.exports = class {
       return message.author.send(errorEmbed);
     }
 
-    if (
-      !message.channel.permissionsFor(message.guild.me).missing("SEND_MESSAGES")
-    )
-      return;
-
     // Paramètres
     const settings = this.client.getSettings(message.guild);
     message.settings = settings;
 
     // Détecte la mention du bot
     let spooky = false;
-    let mentionned = message.guild.member(message.mentions.users.first());
-    if (mentionned && mentionned.id == "672141573076811818") spooky = true;
+    if (message.content.startsWith("<@!672141573076811818>")) spooky = true;
 
     // Ignore le message s'il ne commence pas par le préfix
     if (message.content.indexOf(settings.prefix) !== 0 && spooky == false)
       return;
 
-    // Mention bot => préfix
+    // Mention bot => affiche préfix
     if (spooky == true && message.content.length == 22) {
       const prefEmbed = new MessageEmbed()
         .setAuthor(
@@ -52,7 +46,7 @@ module.exports = class {
       return message.channel.send(prefEmbed);
     }
 
-    // Détecte si la longueur du préfix selon s'il correspond à la mention du bot ou non
+    // Détecte la longueur du préfix selon s'il correspond à la mention du bot ou non
     let prefixL;
     if (spooky == true) prefixL = 22;
     else prefixL = settings.prefix.length;

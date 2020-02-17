@@ -15,20 +15,24 @@ class Userinfo extends Command {
   run(message, args) {
     moment.locale("fr");
 
-    var mentionned = message.guild.member(
-      message.mentions.users.first() || message.guild.members.cache.get(args[0])
+    // Mention d'utilisateur / id / pseudo, hashtag
+    let user = message.guild.member(
+      message.mentions.users.first() ||
+        message.guild.members.cache.get(args[0]) ||
+        this.client.users.cache.find(u =>
+          u.tag.toLowerCase().includes(args[0].toLowerCase())
+        )
     );
+    if (!args[0]) user = message.author;
+    else if (!user)
+      return message.channel.send(":x: L'utilisateur n'existe pas !");
 
-    var mentionnedbot = message.mentions.users.first();
-    var getvalueof;
-
-    if (mentionnedbot) {
-      getvalueof = mentionnedbot;
-    } else {
-      getvalueof = message.author;
-    }
-
-    var checkbot;
+    // Définition des variables
+    let isBot;
+    if (user.bot == true) isBot = "🤖 Bot";
+    else isBot = "😁 Humain";
+    /*
+    let checkbot;
     if (getvalueof.bot == true) {
       checkbot = "🤖 Bot";
     } else {
@@ -39,7 +43,7 @@ class Userinfo extends Command {
       return message.channel.send("L'utilisateur n'existe pas !");
     }
 
-    var status;
+    let status;
     if (mentionned.presence.status == "online") {
       status = "<:online:492774463398477834> En ligne";
     } else if (mentionned.presence.status == "offline") {
@@ -52,7 +56,7 @@ class Userinfo extends Command {
       status = "<:streaming:492994618942685214> Streaming";
     }
 
-    var roles;
+    let roles;
     if (mentionned.roles.size == 1) {
       roles = ":x: Aucun rôles";
     } else {
@@ -125,6 +129,7 @@ class Userinfo extends Command {
         "Une erreur est survenue et il m'est impossible d'exécuter cette commande ! Il est possible que vous ayez trop de rôles par rapport au nombre de caractères maximum que demande un embed (``<google / <ggl Qu'est ce qu'un embed Discord ?``). Attention, cela peut aussi être lié à un autre problème dont je ne connais pas forcément l'existence !"
       );
     }
+    */
   }
 }
 
