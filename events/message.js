@@ -103,7 +103,7 @@ module.exports = class {
       }
     }
 
-    message.author.permLevel = level;
+    message.member.permLevel = level;
 
     message.flags = [];
     while (args[0] && args[0][0] === "-") {
