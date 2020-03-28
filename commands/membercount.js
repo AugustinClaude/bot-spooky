@@ -1,7 +1,7 @@
 const Command = require("../modules/Command.js");
 const { MessageEmbed } = require("discord.js");
 
-class Math extends Command {
+class MemberC extends Command {
   constructor(client) {
     super(client, {
       name: "membercount",
@@ -97,4 +97,4 @@ class Math extends Command {
   }
 }
 
-module.exports = Math;
+module.exports = MemberC;
