@@ -157,19 +157,6 @@ class Userinfo extends Command {
         ":x: Une erreur s'est produite lors de l'envoi de l'embed !"
       );
     }
-
-    /*
-        .addField(
-          "⭕ Kickable",
-          `${mentionned.kickable ? "✅ Oui" : "❌ Non"}`,
-          true
-        )
-        .addField(
-          "⭕ Bannable",
-          `${mentionned.bannable ? "✅ Oui" : "❌ Non"}`,
-          true
-        )
-    */
   }
 }
 
