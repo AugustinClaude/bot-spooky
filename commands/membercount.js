@@ -51,16 +51,13 @@ class MemberC extends Command {
         .size - streaming;
 
     // ------ No roles ------
-    let noRole;
-    let hasRoles = false;
     let roles1 = 0;
     message.guild.members.cache.each(member => {
       if (member.roles.cache.size > 1) {
-        hasRoles = true;
         roles1 = roles1 + 1;
-      } else hasRoles = false;
+      }
     });
-    noRole = nbMember - roles1;
+    let noRole = nbMember - roles1;
 
     // ------ Embed setup & envoi ------
     const servEmbed = new MessageEmbed()
