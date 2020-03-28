@@ -79,13 +79,27 @@ class Kick extends Command {
       message.channel.send(":x: Channel **logs / log** introuvable.");
     }
 
+    let channel = message.guild.channels.cache
+      .filter(
+        channel =>
+          channel.type === "text" &&
+          channel.permissionsFor(message.guild.me).has("VIEW_CHANNEL")
+      )
+      .random();
+    let link;
+    const invite = await channel
+      .createInvite({ maxAge: 0, maxUses: 1 })
+      .then(invite => {
+        link = invite.code;
+      });
+
     message.guild.member(kickedUser).kick(kickedReason);
     kickChannel.send(kickedEmbed);
     message.channel.send(
       `**${kickedUser.user.username}** a été kick avec succès pour :\n\`${kickedReason}\``
     );
     kickedUser.send(
-      `Vous avez été kick du serveur **${message.guild.name}** pour :\n\`${kickedReason}\`\n\nVous pouvez rejoindre à nouveau le serveur ici : no link specified`
+      `Vous avez été kick du serveur **${message.guild.name}** pour :\n\`${kickedReason}\`\n\nVous pouvez rejoindre à nouveau le serveur ici : https://discord.gg/${link}`
     );
   }
 }
