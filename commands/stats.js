@@ -33,7 +33,7 @@ class Stats extends Command {
         message.author.displayAvatarURL({ dynamic: true })
       )
       .setThumbnail(this.client.user.displayAvatarURL())
-      .addBlankField()
+      .addField("\u200B", "\u200B")
       .setColor("#99dd11")
       .setFooter(
         this.client.user.username + " ©",
@@ -47,7 +47,7 @@ class Stats extends Command {
         true
       )
       .addField("⬆ Uptime", `**${duration}**`, true)
-      .addBlankField()
+      .addField("\u200B", "\u200B")
       .addField("🍪 Utilisateurs", `**${nb.toLocaleString()}**`, true)
       .addField(
         "💬 Channels",
@@ -59,7 +59,7 @@ class Stats extends Command {
         `**${this.client.guilds.cache.size.toLocaleString()}**`,
         true
       )
-      .addBlankField()
+      .addField("\u200B", "\u200B")
       .addField("📋 Discord.js Version", `**v${version}**`, true)
       .addField("📄 Node Version", `**${process.version}**`, true);
     message.channel.send(statsEmbed);

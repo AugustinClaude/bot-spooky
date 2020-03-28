@@ -131,7 +131,7 @@ class Userinfo extends Command {
         .addField("✏️ ID", id, true)
         .addField("⚙️ Statut", status, true)
         .addField("🎮 Jeu", activity, true)
-        .addBlankField()
+        .addField("\u200B", "\u200B")
         .addField(
           `<:bing_slime:585135069908434944> ${
             nbRoles == 1 ? "Rôle" : "Rôles"
@@ -140,10 +140,10 @@ class Userinfo extends Command {
           true
         )
         .addField("⬆ Rôle le plus haut", highestRole, true)
-        .addBlankField()
+        .addField("\u200B", "\u200B")
         .addField("📊 Position d'arrivée", arrivalPosition, true)
         .addField("📚 Ordre d'arrivée", orderArrival, true)
-        .addBlankField()
+        .addField("\u200B", "\u200B")
         .addField("🚪 A rejoint le", joinedTime, true)
         .addField("🛠 Compte créé le", createdTime, true)
         .setFooter(

@@ -22,7 +22,7 @@ class Perm extends Command {
       )
       .setThumbnail(this.client.user.displayAvatarURL())
       .setTitle("📕 Permissions")
-      .addBlankField()
+      .addField("\u200B", "\u200B")
       .addField("▶️ Niveau de permission", level)
       .addField("✏️ Nom de la permission", perm)
       .setColor("#9988ff")

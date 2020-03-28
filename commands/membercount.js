@@ -68,7 +68,7 @@ class MemberC extends Command {
     const servEmbed = new MessageEmbed()
       .setAuthor(message.guild.name, message.guild.iconURL())
       .setThumbnail(message.guild.iconURL())
-      .addBlankField()
+      .addField("\u200B", "\u200B")
       .setColor("#33aa55")
       .setFooter(
         `Demandé par ${message.author.tag}`,
@@ -79,17 +79,17 @@ class MemberC extends Command {
 
       .addField("🥝 Membres", nbMember, true)
       .addField("👻 Membres sans rôle(s)", noRole, true)
-      .addBlankField()
+      .addField("\u200B", "\u200B")
       .addField("😄 Humains", humains, true)
       .addField("🤖 Bots", bots, true)
-      .addBlankField()
+      .addField("\u200B", "\u200B")
       .addField(
         "⚙️ Statut des membres",
         `<:online:679396291456925697> **En ligne :** ${online}\n<:offline:679396291251404801> **Hors ligne :** ${offline}\n<:idle:679396291226370060> **Inactif :** ${idle}\n<:dnd:679396291167649814> **Ne pas déranger :** ${dnd}\n<:streaming:679396291721297960> **Streaming :** ${streaming}`,
         true
       )
       .addField("🍏 Membres connectés", online + dnd + idle + streaming, true)
-      .addBlankField()
+      .addField("\u200B", "\u200B")
       .addField("🌍 Nombre de rôle(s)", roles, true)
       .addField("📁 Bots offline", botoffline, true);
 

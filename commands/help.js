@@ -29,7 +29,7 @@ class Help extends Command {
       .setDescription(
         `❱ **Préfix :** \`${this.client.config.defaultSettings.prefix}\`\n❱ **Description :** Les \`[]\` sont optionnels et les \`<>\` sont obligatoires et tout deux ne doivent pas apparaître dans la commande.\n❱ **Infos :** \`${this.client.config.defaultSettings.prefix}help [commande]\`\n❱ **Nombre de commandes :** \`${nb_cmd}\``
       )
-      .addBlankField()
+      .addField("\u200B", "\u200B")
       .setColor("#80aaff")
       .setFooter(
         this.client.user.username + " ©",
@@ -89,7 +89,7 @@ class Help extends Command {
         true
       );
     }
-    help.addBlankField();
+    help.addField("\u200B", "\u200B");
 
     // Mise en place des embeds de catégorie
     for (
@@ -109,9 +109,9 @@ class Help extends Command {
         .setDescription(
           `❱ **Préfix :** \`${this.client.config.defaultSettings.prefix}\`\n❱ **Description :** Les \`[]\` sont optionnels et les \`<>\` sont obligatoires et tout deux ne doivent pas apparaître dans la commande.\n❱ **Infos :** \`${this.client.config.defaultSettings.prefix}help [commande]\``
         )
-        .addBlankField()
+        .addField("\u200B", "\u200B")
         .addField(`${arrField[i]}`, `${arrList[i]}`, true)
-        .addBlankField()
+        .addField("\u200B", "\u200B")
         .setColor(`${arrColor[i]}`)
         .setFooter(
           this.client.user.username + " ©",

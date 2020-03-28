@@ -41,14 +41,14 @@ class Weather extends Command {
         .setTitle(`Météo pour ${current.observationpoint}`)
         .setThumbnail(current.imageUrl)
         .setColor(0x00ae86)
-        .addBlankField()
+        .addField("\u200B", "\u200B")
         .addField("Timezone 🕒", `${UTC}`, true)
         .addField(
           "Type de degrée :thermometer:",
           `°${location.degreetype}`,
           true
         )
-        .addBlankField()
+        .addField("\u200B", "\u200B")
         .addField(
           "Température :thermometer:",
           `${current.temperature}°${location.degreetype}`,
@@ -59,7 +59,7 @@ class Weather extends Command {
           `${current.feelslike}°${location.degreetype}`,
           true
         )
-        .addBlankField()
+        .addField("\u200B", "\u200B")
         .addField("Vent :wind_blowing_face:", current.winddisplay, true)
         .addField("Humidité :sweat_drops:", `${current.humidity}%`, true);
       message.channel.send(weatherEmbed);
