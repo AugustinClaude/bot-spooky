@@ -60,9 +60,7 @@ class MemberC extends Command {
         roles1 = roles1 + 1;
       } else hasRoles = false;
     });
-    if (hasRoles == true) {
-      noRole = nbMember - roles1;
-    }
+    noRole = nbMember - roles1;
 
     // ------ Embed setup & envoi ------
     const servEmbed = new MessageEmbed()
