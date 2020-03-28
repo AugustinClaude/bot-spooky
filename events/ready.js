@@ -1,4 +1,5 @@
 const colors = require("colors");
+const main = require("../main.js");
 
 module.exports = class {
   constructor(client) {
@@ -37,6 +38,11 @@ module.exports = class {
     }
 
     // Logs une fois en ligne
+    this.client.logger.log(
+      `${main.nb} commandes chargées avec succès !`,
+      "ready"
+    );
+
     this.client.logger.log(
       `= ${
         this.client.user.username

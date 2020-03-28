@@ -1,5 +1,6 @@
 const Command = require("../modules/Command.js");
 const { MessageEmbed } = require("discord.js");
+const main = require("../main.js");
 
 class Help extends Command {
   constructor(client) {
@@ -15,6 +16,7 @@ class Help extends Command {
     const cmd =
       this.client.commands.get(args[0]) ||
       this.client.commands.get(this.client.aliases.get(args[0]));
+    let nb_cmd = main.nb;
 
     // Embed général
     const help = new MessageEmbed()
@@ -25,7 +27,7 @@ class Help extends Command {
       .setThumbnail(this.client.user.displayAvatarURL())
       .setTitle("🔧 Voici la liste des catégories de commandes !")
       .setDescription(
-        `❱ **Préfix :** \`${this.client.config.defaultSettings.prefix}\`\n❱ **Description :** Les \`[]\` sont optionnels et les \`<>\` sont obligatoires et tout deux ne doivent pas apparaître dans la commande.\n❱ **Infos :** \`${this.client.config.defaultSettings.prefix}help [commande]\``
+        `❱ **Préfix :** \`${this.client.config.defaultSettings.prefix}\`\n❱ **Description :** Les \`[]\` sont optionnels et les \`<>\` sont obligatoires et tout deux ne doivent pas apparaître dans la commande.\n❱ **Infos :** \`${this.client.config.defaultSettings.prefix}help [commande]\`\n❱ **Nombre de commandes :** \`${nb_cmd}\``
       )
       .addBlankField()
       .setColor("#80aaff")

@@ -5,6 +5,7 @@ const Enmap = require("enmap");
 const klaw = require("klaw");
 const path = require("path");
 require("dotenv").config();
+let nb_cmd = 0;
 
 class Spooky extends Client {
   constructor(options) {
@@ -49,6 +50,8 @@ class Spooky extends Client {
 
   loadCommand(commandPath, commandName) {
     try {
+      nb_cmd++;
+      module.exports.nb = nb_cmd;
       const props = new (require(`${commandPath}${path.sep}${commandName}`))(
         this
       );
@@ -96,7 +99,6 @@ class Spooky extends Client {
     return returnObject;
   }
 }
-
 const client = new Spooky({
   disableEveryone: true,
   fetchAllMembers: true
