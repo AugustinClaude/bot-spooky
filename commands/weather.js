@@ -7,7 +7,7 @@ class Weather extends Command {
     super(client, {
       name: "weather",
       description: "Affiche la météo d'un lieu donné.",
-      usage: "weather [lieu]",
+      usage: "weather <lieu>",
       aliases: ["meteo"]
     });
   }

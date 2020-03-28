@@ -6,7 +6,7 @@ class Cmd extends Command {
     super(client, {
       name: "cmd",
       description: "Affiche le code source d'une commande",
-      usage: "cmd [fichier]",
+      usage: "cmd <fichier>",
       permLevel: "Bot Owner",
       aliases: ["command"]
     });

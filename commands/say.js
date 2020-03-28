@@ -5,7 +5,7 @@ class Say extends Command {
     super(client, {
       name: "say",
       description: "Me fait parler",
-      usage: "say [message]",
+      usage: "say <message>",
       permLevel: "Mod"
     });
   }

@@ -7,7 +7,7 @@ class Userinfo extends Command {
     super(client, {
       name: "userinfo",
       description: "Affiche des informations à propos d'un utilisateur",
-      usage: "userinfo [utilisateur]",
+      usage: "userinfo <utilisateur>",
       aliases: ["ui", "user"]
     });
   }

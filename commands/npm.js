@@ -9,7 +9,7 @@ class Npm extends Command {
     super(client, {
       name: "npm",
       description: "Affiche des informations à propos d'un module npm.",
-      usage: "npm [module]"
+      usage: "npm <module>"
     });
   }
 

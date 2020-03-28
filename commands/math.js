@@ -7,7 +7,7 @@ class Math extends Command {
     super(client, {
       name: "math",
       description: "Affiche le résultat d'un calcul",
-      usage: "math [calcul]",
+      usage: "math <calcul>",
       aliases: ["maths", "calcul"]
     });
   }

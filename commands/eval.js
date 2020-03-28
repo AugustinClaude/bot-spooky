@@ -6,7 +6,7 @@ class Eval extends Command {
     super(client, {
       name: "eval",
       description: '"Évalue" un code en l\'éxecutant',
-      usage: "eval [code]",
+      usage: "eval <code>",
       aliases: ["evaluation"],
       permLevel: "Bot Owner"
     });
