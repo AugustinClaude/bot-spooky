@@ -12,24 +12,28 @@ class Math extends Command {
   }
 
   run(message, args) {
-    let servIcon = message.guild.iconURL;
-    let servName = message.guild.name;
+    // ------ Vars ------
     let nbMember = message.guild.memberCount;
-    let roles = message.guild.roles.size;
-
+    let roles = message.guild.roles.cache.size - 1;
     let humains = message.guild.members.cache.filter(member => !member.user.bot)
       .size;
     let bots = message.guild.members.cache.filter(member => member.user.bot)
       .size;
-
     let botoffline = message.guild.members.cache.filter(
       member => member.user.bot && member.presence.status === "offline"
     ).size;
 
+    if (botoffline == 0) botoffline = ":x: Aucun bots offline";
+
+    // ------ Status ------
     let streaming = 0;
     message.guild.members.cache.forEach(member => {
-      if (member.presence.game && member.presence.game.type == 1) {
-        streaming = streaming + 1;
+      let memArr = member.presence.activities;
+
+      for (let i = 0; i < memArr.length; i++) {
+        if (memArr[i].type == "STREAMING") {
+          streaming++;
+        }
       }
     });
 
@@ -42,15 +46,16 @@ class Math extends Command {
     let offline = message.guild.members.cache.filter(
       o => o.presence.status === "offline"
     ).size;
-    let online = message.guild.members.cache.filter(
-      o => o.presence.status === "online"
-    ).size;
+    let online =
+      message.guild.members.cache.filter(o => o.presence.status === "online")
+        .size - streaming;
 
+    // ------ No roles ------
     let noRole;
     let hasRoles = false;
     let roles1 = 0;
     message.guild.members.cache.each(member => {
-      if (member.roles.size > 1) {
+      if (member.roles.cache.size > 1) {
         hasRoles = true;
         roles1 = roles1 + 1;
       } else hasRoles = false;
@@ -59,16 +64,19 @@ class Math extends Command {
       noRole = nbMember - roles1;
     }
 
-    if (botoffline == 0) botoffline = ":x: Aucun bots offline";
-
+    // ------ Embed setup & envoi ------
     const servEmbed = new MessageEmbed()
-      .setAuthor(servName, servIcon)
-      .setColor("#8815DF")
+      .setAuthor(message.guild.name, message.guild.iconURL())
+      .setThumbnail(message.guild.iconURL())
+      .addBlankField()
+      .setColor("#33aa55")
       .setFooter(
-        this.client.user.username + " ©",
-        this.client.user.displayAvatarURL
+        `Demandé par ${message.author.tag}`,
+        message.author.displayAvatarURL({ dynamic: true })
       )
       .setTimestamp()
+      .setTitle("📊 Members stats")
+
       .addField("🥝 Membres", nbMember, true)
       .addField("👻 Membres sans rôle(s)", noRole, true)
       .addBlankField()
@@ -77,16 +85,15 @@ class Math extends Command {
       .addBlankField()
       .addField(
         "⚙️ Statut des membres",
-        `<:online:679396291456925697> **Online :** ${online}\n<:offline:492994318072807424> **Offline :** ${offline}\n<:idle:492993972277608448> **Inactif :** ${idle}\n<:dnd:492774462400364556> **Ne pas déranger :** ${dnd}\n<:streaming:492994618942685214> **Streaming :** ${streaming}`,
+        `<:online:679396291456925697> **En ligne :** ${online}\n<:offline:679396291251404801> **Hors ligne :** ${offline}\n<:idle:679396291226370060> **Inactif :** ${idle}\n<:dnd:679396291167649814> **Ne pas déranger :** ${dnd}\n<:streaming:679396291721297960> **Streaming :** ${streaming}`,
         true
       )
-      .addField("🍏 Membres connectés", online + dnd + idle, true)
+      .addField("🍏 Membres connectés", online + dnd + idle + streaming, true)
       .addBlankField()
       .addField("🌍 Nombre de rôle(s)", roles, true)
       .addField("📁 Bots offline", botoffline, true);
 
     message.channel.send(servEmbed);
-    message.delete();
   }
 }
 
