@@ -83,7 +83,9 @@ class Kick extends Command {
       .filter(
         channel =>
           channel.type === "text" &&
-          channel.permissionsFor(message.guild.me).has("VIEW_CHANNEL")
+          channel
+            .permissionsFor(message.guild.me)
+            .has(["VIEW_CHANNEL", "SEND_MESSAGES"])
       )
       .random();
     let link;
