@@ -18,6 +18,10 @@ class Eval extends Command {
     if (input == "") input = "❌ Input invalide";
     if (input.toLowerCase().includes("TOKEN".toLowerCase()))
       return message.channel.send(":x: Je ne peux pas montrer mon token !");
+    if (input.toLowerCase().includes("DB".toLowerCase()))
+      return message.channel.send(
+        ":x: Je ne peux pas montrer mes infos à propos de la DB"
+      );
 
     const codeEmbed = new MessageEmbed()
       .setAuthor(
