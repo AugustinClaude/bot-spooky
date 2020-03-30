@@ -24,16 +24,16 @@ module.exports = class {
       if (err) console.log(err.message);
       //console.log(results);
       if (results[0] == undefined) {
-        this.logger.log(
+        console.log(
           `Création de la ligne de config pour le serveur : ${message.guild.name}`
         );
+
+        let setDefaultSettings = `INSERT INTO guildSettings(guildId) VALUES('${message.guild.id}')`;
+
+        db.query(setDefaultSettings, function(err, results, fields) {
+          if (err) console.log(err.message);
+        });
       }
-    });
-
-    let setDefaultSettings = `INSERT INTO guildSettings(guildId) VALUES('${message.guild.id}')`;
-
-    db.query(setDefaultSettings, function(err, results, fields) {
-      if (err) console.log(err.message);
     });
 
     // Paramètres
