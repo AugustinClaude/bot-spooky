@@ -25,15 +25,28 @@ class Setlogs extends Command {
         ":x: Veuillez préciser le channel où vous voulez setup vos logs !"
       );
     } else if (args[0] == "off") {
-      message.channel.send(
-        ":white_check_mark: Le channel de logs a été désactivé ! Il n'y a désormais plus de channel de logs"
-      );
+      // Récupèration infos guild
+
+      let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
+
+      db.query(getGuildSetting, function(err, results, fields) {
+        if (err) console.log(err.message);
+        if (
+          results[0].logChannel_id == undefined ||
+          results[0].logChannel_name == undefined
+        )
+          return message.channel.send(
+            ":warning: Le channel de logs est déjà désactivé !"
+          );
+        else
+          message.channel.send(
+            ":white_check_mark: Le channel de logs a été désactivé ! Il n'y a désormais plus de channel de logs"
+          );
+      });
 
       // Désactive le channel de logs
 
-      let setLogChannelId = `UPDATE guildSettings SET logChannel_id = '${null}' WHERE guildSettings.guildId = '${
-        message.guild.id
-      }';`;
+      let setLogChannelId = `UPDATE guildSettings SET logChannel_id = DEFAULT WHERE guildSettings.guildId = '${message.guild.id}';`;
 
       db.query(setLogChannelId, function(err, results, fields) {
         if (err) {
@@ -41,9 +54,7 @@ class Setlogs extends Command {
         }
       });
 
-      let setLogChannelName = `UPDATE guildSettings SET logChannel_name = '${null}' WHERE guildSettings.guildId = '${
-        message.guild.id
-      }';`;
+      let setLogChannelName = `UPDATE guildSettings SET logChannel_name = DEFAULT WHERE guildSettings.guildId = '${message.guild.id}';`;
 
       db.query(setLogChannelName, function(err, results, fields) {
         if (err) {

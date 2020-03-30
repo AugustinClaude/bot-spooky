@@ -33,16 +33,27 @@ class Logs extends Command {
     db.query(getGuildSetting, function(err, results, fields) {
       if (err) console.log(err.message);
       //console.log(results);
-      if (results[0] == undefined) return;
-
       let logChannel = message.guild.channels.cache.get(
         results[0].logChannel_id
       );
 
-      logsEmbed
-        .addField("#️⃣ Channel de logs", `<#${logChannel.id}>`)
-        .addField("🏷️ Nom", logChannel.name)
-        .addField("✏️ Id", logChannel.id);
+      let channel;
+
+      if (
+        results[0].logChannel_id == undefined ||
+        results[0].logChannel_name == undefined
+      ) {
+        channel = ":warning:  Il n'y a pas de channel de logs";
+      } else {
+        channel = `<#${logChannel.id}>`;
+        logsEmbed
+          .addField("✏️ Id", logChannel.id, true)
+          .addField("🏷️ Nom", logChannel.name, true)
+          .addField("\u200B", "\u200B");
+      }
+
+      logsEmbed.addField("#️⃣ Channel de logs", channel);
+
       message.channel.send(logsEmbed);
     });
   }
