@@ -98,7 +98,7 @@ module.exports = class {
           )
           .setThumbnail(this.client.user.displayAvatarURL())
           .setTitle("📕 Permissions non suffisantes")
-          .addBlankField()
+          .addField("\u200B", "\u200B")
           .addField(
             "▶️ Votre niveau de permission",
             `**Niveau :** ${level} | **Nom :** ${
