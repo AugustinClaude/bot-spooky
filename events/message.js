@@ -28,11 +28,36 @@ module.exports = class {
           `Création de la ligne de config pour le serveur : ${message.guild.name}`
         );
 
-        let setDefaultSettings = `INSERT INTO guildSettings(guildId) VALUES('${message.guild.id}')`;
+        let setDefaultSettings = `INSERT INTO guildSettings(guildId, guildName) VALUES('${message.guild.id}', '${message.guild.name}')`;
 
         db.query(setDefaultSettings, function(err, results, fields) {
           if (err) console.log(err.message);
         });
+      } else {
+        if (results[0].guildName !== message.guild.name) {
+          let updateGuildName = `UPDATE guildSettings SET guildName = '${message.guild.name}' WHERE guildSettings.guildId = '${message.guild.id}';`;
+
+          db.query(updateGuildName, function(err, results, fields) {
+            if (err) {
+              console.log(err.message);
+            }
+          });
+        }
+
+        if (results[0].logChannel_id !== null) {
+          let logChannelId = results[0].logChannel_id;
+          let logChannelName = message.guild.channels.cache.get(logChannelId)
+            .name;
+          if (results[0].logChannel_name !== logChannelName) {
+            let updateLogChannelName = `UPDATE guildSettings SET logChannel_name = '${logChannelName}' WHERE guildSettings.guildId = '${message.guild.id}';`;
+
+            db.query(updateLogChannelName, function(err, results, fields) {
+              if (err) {
+                console.log(err.message);
+              }
+            });
+          }
+        }
       }
     });
 
