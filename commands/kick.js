@@ -1,6 +1,7 @@
 const Command = require("../modules/Command.js");
 const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
+const channelLogs = require("./setlogs.js");
 
 class Kick extends Command {
   constructor(client) {
@@ -72,13 +73,6 @@ class Kick extends Command {
       )
       .setThumbnail(kickedUser.user.displayAvatarURL());
 
-    const kickChannel = message.guild.channels.cache.find(
-      c => c.name === "logs" || c.name === "log"
-    );
-    if (!kickChannel) {
-      message.channel.send(":x: Channel **logs / log** introuvable.");
-    }
-
     let channel = message.guild.channels.cache
       .filter(
         channel =>
@@ -90,18 +84,24 @@ class Kick extends Command {
       .random();
     let link;
     const invite = await channel
-      .createInvite({ maxAge: 0, maxUses: 1 })
+      .createInvite({ maxAge: 0, maxUses: 0 })
       .then(invite => {
         link = invite.code;
       });
 
+    if (channelLogs.channel) {
+      channelLogs.channel.send(kickedEmbed);
+    } else
+      message.channel.send(
+        `⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${this.client.config.defaultSettings.prefix}setlogs [#channel]\``
+      );
+
     message.guild.member(kickedUser).kick(kickedReason);
-    kickChannel.send(kickedEmbed);
     message.channel.send(
-      `**${kickedUser.user.username}** a été kick avec succès pour :\n\`${kickedReason}\``
+      `:white_check_mark: **${kickedUser.user.username}** a été kick avec succès pour :\n\`${kickedReason}\``
     );
     kickedUser.send(
-      `Vous avez été kick du serveur **${message.guild.name}** pour :\n\`${kickedReason}\`\n\nVous pouvez rejoindre à nouveau le serveur ici : https://discord.gg/${link}`
+      `:warning: Vous avez été kick du serveur **${message.guild.name}** pour :\n\`${kickedReason}\`\n\nVous pouvez rejoindre à nouveau le serveur ici : https://discord.gg/${link}`
     );
   }
 }
