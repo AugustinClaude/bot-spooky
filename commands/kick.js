@@ -1,7 +1,7 @@
 const Command = require("../modules/Command.js");
 const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
-const channelLogs = require("./setlogs.js");
+const db = require("../db.js");
 
 class Kick extends Command {
   constructor(client) {
@@ -57,7 +57,7 @@ class Kick extends Command {
       )
       .setTimestamp()
       .addField(
-        "⛔️ Membre kické",
+        "⛔ Membre kické",
         `**${kickedUser.user.username}** (ID: ${kickedUser.id})`
       )
       .addField("🌀 Kick par", `${message.author} (ID: ${message.author.id})`)
@@ -89,20 +89,31 @@ class Kick extends Command {
         link = invite.code;
       });
 
-    if (channelLogs.channel) {
-      channelLogs.channel.send(kickedEmbed);
-    } else
-      message.channel.send(
-        `⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${this.client.config.defaultSettings.prefix}setlogs [#channel]\``
+    // Récupération des infos du channel de logs
+
+    let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
+
+    db.query(getGuildSetting, function(err, results, fields) {
+      if (err) console.log(err.message);
+      //console.log(results);
+      if (results[0] == undefined) return;
+
+      let logChannel = message.guild.channels.cache.get(
+        results[0].logChannel_id
       );
 
-    message.guild.member(kickedUser).kick(kickedReason);
-    message.channel.send(
-      `:white_check_mark: **${kickedUser.user.username}** a été kick avec succès pour :\n\`${kickedReason}\``
-    );
-    kickedUser.send(
-      `:warning: Vous avez été kick du serveur **${message.guild.name}** pour :\n\`${kickedReason}\`\n\nVous pouvez rejoindre à nouveau le serveur ici : https://discord.gg/${link}`
-    );
+      if (logChannel) {
+        logChannel.send(kickedEmbed);
+      } else message.channel.send(`⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${this.client.config.defaultSettings.prefix}setlogs [#channel]\``);
+
+      message.guild.member(kickedUser).kick(kickedReason);
+      message.channel.send(
+        `:white_check_mark: **${kickedUser.user.username}** a été kick avec succès pour :\n\`${kickedReason}\``
+      );
+      kickedUser.send(
+        `:warning: Vous avez été kick du serveur **${message.guild.name}** pour :\n\`${kickedReason}\`\n\nVous pouvez rejoindre à nouveau le serveur ici : https://discord.gg/${link}`
+      );
+    });
   }
 }
 
