@@ -164,7 +164,7 @@ class Ban extends Command {
           message.guild.members.unban(bannedUser.id);
 
           message.channel.send(
-            `✅ **${bannedUser.user.username}** a été **unban** car le bannissement a expiré`
+            `✅ **${bannedUser.user.username}** a été **unban** car son bannissement a expiré`
           );
           bannedUser.send(
             `:white_check_mark: Vous avez été **unban** du serveur **${message.guild.name}** car votre bannissement a expiré`
