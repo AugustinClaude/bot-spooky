@@ -27,7 +27,6 @@ class Cmd extends Command {
       );
       message.delete({ timeout: 500 });
     } catch (e) {
-      console.log(e);
       try {
         if (cmd.length > 2000)
           return message.channel.send(
