@@ -144,10 +144,12 @@ class Mute extends Command {
             }
           });
           message.guild.channels.cache.forEach(async (channel, id) => {
-            await channel.overwritePermissions(muteRole, {
-              SEND_MESSAGES: false,
-              ADD_REACTIONS: false
-            });
+            await channel.overwritePermissions([
+              {
+                id: muteRole.id,
+                deny: ["SEND_MESSAGES", "ADD_REACTIONS"]
+              }
+            ]);
           });
         } catch (e) {
           console.log(e.stack);
@@ -156,10 +158,10 @@ class Mute extends Command {
 
       await mutedUser.roles.add(muteRole.id);
       message.channel.send(
-        `:white_check_mark: **${mutedUser.user.username}** a été **mute** avec succès pendant ${muteTime_Txt} pour la raison suivante :\n\`${mutedReason}\``
+        `:white_check_mark: **${mutedUser.user.username}** a été  🔇 **mute**  avec succès pendant ${muteTime_Txt} pour la raison suivante :\n\`${mutedReason}\``
       );
       mutedUser.send(
-        `:warning: Vous avez été 🔇 **mute** du serveur **${message.guild.name}** pendant ${muteTime_Txt} par **${message.author.username}** pour la raison suivante :\n\`${mutedReason}\``
+        `:warning: Vous avez été  🔇 **mute**  du serveur **${message.guild.name}** pendant ${muteTime_Txt} par **${message.author.username}** pour la raison suivante :\n\`${mutedReason}\``
       );
 
       if (TimeUntilUnmute == true) {
@@ -167,10 +169,10 @@ class Mute extends Command {
           mutedUser.roles.remove(muteRole.id);
 
           message.channel.send(
-            `:white_check_mark: **${mutedUser.user.username}** a été 🔊 **unmute** car son mute a expiré`
+            `:white_check_mark: **${mutedUser.user.username}** a été  🔊 **unmute**  car son mute a expiré`
           );
           mutedUser.send(
-            `:white_check_mark: Vous avez été **unmute** du serveur **${message.guild.name}** car votre mute a expiré`
+            `:white_check_mark: Vous avez été  🔊 **unmute**  du serveur **${message.guild.name}** car votre mute a expiré`
           );
           if (logChannel) logChannel.send(unmuteEmbed);
         }, ms(args[1]));
