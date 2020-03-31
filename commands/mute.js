@@ -164,7 +164,7 @@ class Mute extends Command {
         `:warning: Vous avez été  🔇 **mute**  du serveur **${message.guild.name}** pendant ${muteTime_Txt} par **${message.author.username}** pour la raison suivante :\n\`${mutedReason}\``
       );
 
-      if (TimeUntilUnmute == true) {
+      if (TimeUntilUnmute == true && mutedUser.roles.cache.has(muteRole.id)) {
         setTimeout(() => {
           mutedUser.roles.remove(muteRole.id);
 
