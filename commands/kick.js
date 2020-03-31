@@ -40,7 +40,7 @@ class Kick extends Command {
           "ADMINISTRATOR"
       )
     ) {
-      return message.reply("Vous ne pouvez pas kick cette personne !");
+      return message.reply(":x: Vous ne pouvez pas kick cette personne !");
     }
 
     let kickedReason = `${args.join(" ").slice(args[0].length + 1)}`;
@@ -49,7 +49,7 @@ class Kick extends Command {
     }
 
     const kickedEmbed = new MessageEmbed()
-      .setTitle("❌ Kicks")
+      .setTitle("❌ Kick")
       .setColor("#ff4a4a")
       .setFooter(
         this.client.user.username + " ©",
@@ -72,6 +72,8 @@ class Kick extends Command {
         kickedUser.user.displayAvatarURL({ dynamic: true })
       )
       .setThumbnail(kickedUser.user.displayAvatarURL());
+
+    // Création d'une invitation
 
     let channel = message.guild.channels.cache
       .filter(
@@ -108,10 +110,10 @@ class Kick extends Command {
 
       message.guild.member(kickedUser).kick(kickedReason);
       message.channel.send(
-        `:white_check_mark: **${kickedUser.user.username}** a été kick avec succès pour :\n\`${kickedReason}\``
+        `:white_check_mark: **${kickedUser.user.username}** a été **kick** avec succès pour la raison suivante :\n\`${kickedReason}\``
       );
       kickedUser.send(
-        `:warning: Vous avez été kick du serveur **${message.guild.name}** pour :\n\`${kickedReason}\`\n\nVous pouvez rejoindre à nouveau le serveur ici : https://discord.gg/${link}`
+        `:warning: Vous avez été **kick** du serveur **${message.guild.name}** par **${message.author.username}** pour la raison suivante :\n\`${kickedReason}\`\n\nVous pouvez rejoindre à nouveau le serveur ici : https://discord.gg/${link}`
       );
     });
   }
