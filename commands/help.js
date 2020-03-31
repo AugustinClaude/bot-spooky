@@ -70,7 +70,7 @@ class Help extends Command {
       "`say`",
       "La liste des commandes n'est pas disponible pour le moment",
       "La liste des commandes n'est pas disponible pour le moment",
-      "`clear`, `reboot`, `eval`, `cmd`, `kick`"
+      "`clear`, `reboot`, `eval`, `cmd`, `kick`, `ban`, `unban`"
     ];
     let arrColor = [
       "#88eef7",
