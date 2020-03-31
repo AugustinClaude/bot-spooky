@@ -103,10 +103,10 @@ class Unban extends Command {
       try {
         await message.guild.members.unban(unbannedUser.id);
         message.channel.send(
-          `:white_check_mark: **${unbannedUser.username}** a été **unban** avec succès !`
+          `:white_check_mark: **${unbannedUser.username}** a été **unban** avec succès pour la raison suivante :\n\`${unbannedReason}\``
         );
         unbannedUser.send(
-          `:white_check_mark: Vous avez été **unban** du serveur **${message.guild.name}** par un modérateur.\n\nVous pouvez rejoindre le serveur ici : https://discord.gg/${link}`
+          `:white_check_mark: Vous avez été **unban** du serveur **${message.guild.name}** par **${message.author.username}** pour la raison suivante :\n\`${unbannedReason}\`\n\nVous pouvez rejoindre le serveur ici : https://discord.gg/${link}`
         );
 
         if (logChannel) {
