@@ -64,7 +64,7 @@ class Ban extends Command {
         .format("Do MMMM YYYY à LTS");
     } catch (e) {
       bannedTime = ":x: Indéfinie";
-      bannedTime_Txt = "une durée indéfinie";
+      bannedTime_Txt = "une durée **indéfinie**";
       bannedReason = `${args.join(" ").slice(args[0].length + 1)}`;
       TimeUntilUnban = false;
     }
