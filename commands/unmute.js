@@ -84,7 +84,7 @@ class Unmute extends Command {
           `:white_check_mark: **${unmutedUser.user.username}** a été  🔊 **unmute**  avec succès pour la raison suivante :\n\`${unmutedReason}\``
         );
         unmutedUser.send(
-          `:warning: Vous avez été  🔊 **unmute**  du serveur **${message.guild.name}** par **${message.author.username}** pour la raison suivante :\n\`${unmutedReason}\``
+          `:white_check_mark: Vous avez été  🔊 **unmute**  du serveur **${message.guild.name}** par **${message.author.username}** pour la raison suivante :\n\`${unmutedReason}\``
         );
 
         if (logChannel) {
