@@ -14,8 +14,6 @@ class Logs extends Command {
   }
 
   async run(message, args) {
-    // Récupération des infos du channel de logs
-
     const logsEmbed = new MessageEmbed()
       .setAuthor(message.guild.name, message.guild.iconURL())
       .setThumbnail(message.guild.iconURL())
@@ -27,6 +25,8 @@ class Logs extends Command {
       )
       .setTimestamp()
       .setTitle("📜 Logs");
+
+    // Récupération des infos du channel de logs
 
     let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
