@@ -4,6 +4,8 @@ module.exports = class {
   }
 
   run(member) {
+    // Channel stats
+
     const SpookyGuild = {
       guildID: "695020415294242856",
       memberCountID: "695033979627110404",
