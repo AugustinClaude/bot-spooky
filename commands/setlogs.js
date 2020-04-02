@@ -134,12 +134,14 @@ class Setlogs extends Command {
                   }
                 });
 
-                return m.edit(
+                m.edit(
                   `:white_check_mark: Le channel <#${channel.id}> a bien été défini comme channel de logs !`
                 );
               } else {
-                return m.edit(logChannelConf);
+                m.edit(logChannelConf);
               }
+
+              m.reactions.cache.forEach(r => r.remove());
             });
           } catch (e) {
             return message.channel.send(
