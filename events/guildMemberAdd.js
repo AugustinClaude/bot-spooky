@@ -1,3 +1,5 @@
+const db = require("../db.js");
+
 module.exports = class {
   constructor(client) {
     this.client = client;
@@ -28,5 +30,25 @@ module.exports = class {
         return;
       }
     }
+
+    // Récupération des infos du channel de bienvenue
+
+    let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${member.guild.id}';`;
+
+    db.query(getGuildSetting, function(err, results, fields) {
+      if (err) console.log(err.message);
+      //console.log(results);
+      if (results[0] == undefined) return;
+
+      let welcomeChannel = member.guild.channels.cache.get(
+        results[0].welcomeChannel_id
+      );
+
+      if (welcomeChannel) {
+        welcomeChannel.send(
+          `Bienvenue <@${member.id}> sur **${member.guild.name}** ! Il y a maintenant **${member.guild.memberCount}** membres sur le serveur !`
+        );
+      }
+    });
   }
 };
