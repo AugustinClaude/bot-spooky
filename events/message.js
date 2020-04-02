@@ -58,6 +58,22 @@ module.exports = class {
             });
           }
         }
+
+        if (results[0].welcomeChannel_id !== null) {
+          let welcomeChannelId = results[0].welcomeChannel_id;
+          let welcomeChannelName = message.guild.channels.cache.get(
+            welcomeChannelId
+          ).name;
+          if (results[0].welcomeChannel_name !== welcomeChannelName) {
+            let updateWelcomeChannelName = `UPDATE guildSettings SET welcomeChannel_name = '${welcomeChannelName}' WHERE guildSettings.guildId = '${message.guild.id}';`;
+
+            db.query(updateWelcomeChannelName, function(err, results, fields) {
+              if (err) {
+                console.log(err.message);
+              }
+            });
+          }
+        }
       }
     });
 
