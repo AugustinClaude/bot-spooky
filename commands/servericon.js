@@ -14,7 +14,7 @@ class Servericon extends Command {
   run(message, args) {
     const iconEmbed = new MessageEmbed()
       .setAuthor(message.guild.name, message.guild.iconURL())
-      .setColor("#88bbee")
+      .setColor("#8877ee")
       .setImage(message.guild.iconURL())
       .setFooter(
         this.client.user.username + " ©",
