@@ -1,4 +1,6 @@
 const Command = require("../modules/Command.js");
+const hastebin = require("hastebin.js");
+const haste = new hastebin();
 const fs = require("fs");
 
 class Cmd extends Command {
@@ -28,10 +30,13 @@ class Cmd extends Command {
       message.delete({ timeout: 500 });
     } catch (e) {
       try {
-        if (cmd.length > 2000)
+        if (cmd.length > 2000) {
+          let hastelink;
+          const link = await haste.post(cmd).then(link => (hastelink = link));
           return message.channel.send(
-            ":x: Le fichier dépasse les 2000 caractères autorisés par Discord et ne peut donc pas être envoyé !"
+            `ℹ️ La commande dépasse les 2000 caractères, elle est donc stockée dans ce hastebin : ${hastelink}`
           );
+        }
       } catch (e) {
         return message.channel.send(
           `:x: La syntaxe est mauvaise ou le nom du fichier est incorrect !\n**__Syntaxe :__** ${this.client.config.defaultSettings.prefix}cmd [fichier]`
