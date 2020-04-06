@@ -65,11 +65,11 @@ class Help extends Command {
       "📛 Modération"
     ];
     let arrList = [
-      "`help`, `perm`, `ping`, `stats`, `weather`, `npm`, `userinfo`, `membercount`, `logs`, `welcome`, `avatar`, `servericon`",
-      "`math`, `setlogs`, `setwelcome`",
+      "`help`, `perm`, `ping`, `stats`, `weather`, `npm`, `userinfo`, `membercount`, `logs`, `welcome`, `avatar`, `servericon`, `serverinfo`",
+      "`math`, `setlogs`, `setwelcome`, `setprefix`",
       "`say`, `fight`",
       "La liste des commandes n'est pas disponible pour le moment",
-      "La liste des commandes n'est pas disponible pour le moment",
+      "`cat`, `dog`, `lizard`",
       "`clear`, `reboot`, `eval`, `cmd`, `kick`, `ban`, `unban`, `mute`, `unmute`, `warn`, `warns`"
     ];
     let arrColor = [
