@@ -2,22 +2,22 @@ const Command = require("../modules/Command.js");
 const { MessageEmbed } = require("discord.js");
 const { get } = require("snekfetch");
 
-class Dog extends Command {
+class Lizard extends Command {
   constructor(client) {
     super(client, {
-      name: "dog",
-      description: "Affiche une image de chien aléatoire",
-      usage: `dog`,
-      aliases: ["chien"]
+      name: "lizard",
+      description: "Affiche une image de lézard aléatoire",
+      usage: `lizard`,
+      aliases: ["lezard"]
     });
   }
 
   run(message, args) {
     try {
-      get("https://random.dog/woof.json").then(res => {
-        const dogEmbed = new MessageEmbed()
+      get("https://nekos.life/api/v2/img/lizard").then(res => {
+        const lizardEmbed = new MessageEmbed()
           .setColor("#eeaa22")
-          .setTitle("🐶 Chien")
+          .setTitle("🦎 Lézard")
           .setImage(res.body.url)
           .setFooter(
             this.client.user.username + " ©",
@@ -25,7 +25,7 @@ class Dog extends Command {
           )
           .setTimestamp();
 
-        return message.channel.send(dogEmbed);
+        return message.channel.send(lizardEmbed);
       });
     } catch (e) {
       return message.channel.send(":x: Une erreur est survenue !");
@@ -33,4 +33,4 @@ class Dog extends Command {
   }
 }
 
-module.exports = Dog;
+module.exports = Lizard;
