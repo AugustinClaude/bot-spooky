@@ -70,7 +70,7 @@ class MemberC extends Command {
         message.author.displayAvatarURL({ dynamic: true })
       )
       .setTimestamp()
-      .setTitle("📊 Members stats")
+      .setTitle("📊 Stats Membres")
 
       .addField("🥝 Membres", nbMember, true)
       .addField("👻 Membres sans rôle(s)", noRole, true)
@@ -86,7 +86,7 @@ class MemberC extends Command {
       .addField("🍏 Membres connectés", online + dnd + idle + streaming, true)
       .addField("\u200B", "\u200B")
       .addField("🌍 Nombre de rôle(s)", roles, true)
-      .addField("📁 Bots offline", botoffline, true);
+      .addField("📁 Bots hors-ligne", botoffline, true);
 
     message.channel.send(servEmbed);
   }
