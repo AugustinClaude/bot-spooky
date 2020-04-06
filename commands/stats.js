@@ -7,7 +7,7 @@ class Stats extends Command {
   constructor(client) {
     super(client, {
       name: "stats",
-      description: "Affiche les statistiques du bot.",
+      description: "Affiche les statistiques du bot",
       usage: "stats",
       aliases: ["stat", "statistics"]
     });
