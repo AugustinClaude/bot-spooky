@@ -6,8 +6,8 @@ class Fight extends Command {
     super(client, {
       name: "fight",
       description: "Démarre un combat entre deux utilisateurs",
-      usage: `fight [utilisateur]`,
-      aliases: ["combat"]
+      usage: `fight <utilisateur>`,
+      aliases: ["combat"],
     });
   }
 
@@ -17,7 +17,7 @@ class Fight extends Command {
       fightUser = message.guild.member(
         message.mentions.users.first() ||
           message.guild.members.cache.get(args[0]) ||
-          this.client.users.cache.find(u =>
+          this.client.users.cache.find((u) =>
             u.tag.toLowerCase().includes(args[0].toLowerCase())
           )
       );
@@ -29,7 +29,7 @@ class Fight extends Command {
 
     let joueurs = [
       `:one: **${message.author.username}**`,
-      `:two: **${fightUser.user.username}**`
+      `:two: **${fightUser.user.username}**`,
     ];
     let gagnant = Math.floor(Math.random() * joueurs.length);
 
