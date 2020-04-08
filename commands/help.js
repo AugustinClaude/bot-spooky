@@ -8,7 +8,7 @@ class Help extends Command {
       name: "help",
       description: "Affiche le menu d'aide",
       usage: `help [catégorie] [dm] ou help [commande]`,
-      aliases: ["aide"]
+      aliases: ["aide"],
     });
   }
 
@@ -54,7 +54,7 @@ class Help extends Command {
       "fun",
       "de musique",
       "d'images",
-      "de modération"
+      "de modération",
     ];
     let arrField = [
       "🌐 Informations",
@@ -62,15 +62,15 @@ class Help extends Command {
       "🎉 Fun",
       "🎵 Musique",
       "🖼 Images",
-      "📛 Modération"
+      "📛 Modération",
     ];
     let arrList = [
       "`help`, `perm`, `ping`, `stats`, `weather`, `npm`, `userinfo`, `membercount`, `logs`, `welcome`, `avatar`, `servericon`, `serverinfo`",
       "`math`, `setlogs`, `setwelcome`, `setprefix`",
       "`say`, `fight`",
       "La liste des commandes n'est pas disponible pour le moment",
-      "`cat`, `dog`, `lizard`",
-      "`clear`, `reboot`, `eval`, `cmd`, `kick`, `ban`, `unban`, `mute`, `unmute`, `warn`, `warns`"
+      "`cat`, `dog`, `lizard`, `cuddle`, `feed`, `hug`, `insult`, `kiss`, `pat`, `poke`, `slap`, `tickle`",
+      "`clear`, `reboot`, `eval`, `cmd`, `kick`, `ban`, `unban`, `mute`, `unmute`, `warn`, `warns`",
     ];
     let arrColor = [
       "#88eef7",
@@ -78,7 +78,7 @@ class Help extends Command {
       "#6600cc",
       "#0059F2",
       "#33cc33",
-      "#ff3300"
+      "#ff3300",
     ];
 
     // Mise en place embed général
