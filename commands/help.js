@@ -100,6 +100,8 @@ class Help extends Command {
       i < arrColor.length;
       i++
     ) {
+      let cmdCategory = arrList[i].split(", ");
+
       arrEmbed[i]
         .setAuthor(
           `Demandé par ${message.author.tag}`,
@@ -107,7 +109,7 @@ class Help extends Command {
         )
         .setThumbnail(this.client.user.displayAvatarURL())
         .setDescription(
-          `❱ **Préfix :** \`${this.client.config.defaultSettings.prefix}\`\n❱ **Description :** Les \`[]\` sont optionnels et les \`<>\` sont obligatoires et tout deux ne doivent pas apparaître dans la commande.\n❱ **Infos :** \`${this.client.config.defaultSettings.prefix}help [commande]\``
+          `❱ **Préfix :** \`${this.client.config.defaultSettings.prefix}\`\n❱ **Description :** Les \`[]\` sont optionnels et les \`<>\` sont obligatoires et tout deux ne doivent pas apparaître dans la commande.\n❱ **Infos :** \`${this.client.config.defaultSettings.prefix}help [commande]\`\n❱ **Nombre de commandes ${arrTxt[i]} :** \`${cmdCategory.length}\``
         )
         .addField("\u200B", "\u200B")
         .addField(`${arrField[i]}`, `${arrList[i]}`, true)
