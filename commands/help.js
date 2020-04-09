@@ -68,7 +68,7 @@ class Help extends Command {
       "`help`, `perm`, `ping`, `stats`, `weather`, `npm`, `userinfo`, `membercount`, `logs`, `welcome`, `avatar`, `servericon`, `serverinfo`",
       "`math`, `setlogs`, `setwelcome`, `setprefix`",
       "`say`, `fight`",
-      "La liste des commandes n'est pas disponible pour le moment",
+      "`play`",
       "`cat`, `dog`, `lizard`, `cuddle`, `feed`, `hug`, `insult`, `kiss`, `pat`, `poke`, `slap`, `tickle`",
       "`clear`, `reboot`, `eval`, `cmd`, `kick`, `ban`, `unban`, `mute`, `unmute`, `warn`, `warns`",
     ];
