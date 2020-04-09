@@ -46,7 +46,7 @@
     "sqlstring": "^2.3.1",
     "through2": "^3.0.1",
     "weather-js": "^2.0.0",
-    "ytdl-core": "^1.0.7",
-    "ytdl-core-discord": "amishshah/ytdl-core-discord"
+    "ytdl-core": "^1.0.9",
+    "ytdl-core-discord": "github:amishshah/ytdl-core-discord"
   }
 }

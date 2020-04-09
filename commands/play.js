@@ -79,7 +79,7 @@ class Play extends Command {
 
       var artist = songInfo.media.artist;
       if (!artist)
-        artist = ":x: Je n'ai pas trouvé d'artiste pour cette musique !";
+        artist = "❌ Je n'ai pas trouvé d'artiste pour cette musique !";
 
       queue.textChannel.send(
         `▶ **En train d'être joué** : \`\`\`fix\n${
@@ -92,7 +92,9 @@ class Play extends Command {
           songInfo.player_response.videoDetails.viewCount
         } views\n\`\`\`\n📅 **Publié le** : \`\`\`js\n${moment(
           songInfo.published
-        ).format("LLL")}\n\`\`\`\n👤 **Auteur de la vidéo** : \`\`\`css\n${
+        ).format(
+          "Do YYYY MMMM à LTS"
+        )}\n\`\`\`\n👤 **Auteur de la vidéo** : \`\`\`css\n${
           songInfo.author.name
         }\n\`\`\`\n🎵 **Compositeur** : \`\`\`fix\n${artist}\n\`\`\`\n🌐 **Lien** : ${
           song.url
