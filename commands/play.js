@@ -2,6 +2,7 @@ const Command = require("../modules/Command.js");
 const ytdl = require("ytdl-core");
 const ytdlDiscord = require("ytdl-core-discord");
 const { Util } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
 require("moment-duration-format");
 
@@ -15,7 +16,6 @@ class Play extends Command {
   }
 
   async run(message, args) {
-    message.delete();
     moment.locale("fr");
 
     const { voice } = message.member;
@@ -25,11 +25,12 @@ class Play extends Command {
       );
 
     if (!args[0])
-      return message.reply(
+      return message.channel.send(
         ":warning: Merci de mettre un lien vers une vidéo YouTube !"
       );
     const validate = await ytdl.validateURL(args[0]);
-    if (!validate) return message.reply(":x: Ce lien n'est pas disponible !");
+    if (!validate)
+      return message.channel.send(":x: Ce lien n'est pas disponible !");
 
     const serverQueue = message.client.queue.get(message.guild.id);
     const songInfo = await ytdl.getInfo(args[0]);
@@ -81,25 +82,44 @@ class Play extends Command {
       if (!artist)
         artist = "❌ Je n'ai pas trouvé d'artiste pour cette musique !";
 
-      queue.textChannel.send(
-        `▶ **En train d'être joué** : \`\`\`fix\n${
-          song.title
-        }\n\`\`\`\n⏳ **Durée** : \`\`\`js\n${moment
-          .utc(songInfo.player_response.videoDetails.lengthSeconds * 1000)
-          .format(
-            "H [hrs], m [mins], s [secs]"
-          )}\n\`\`\`\n👀 **Vues** : \`\`\`js\n${
-          songInfo.player_response.videoDetails.viewCount
-        } views\n\`\`\`\n📅 **Publié le** : \`\`\`js\n${moment(
-          songInfo.published
-        ).format(
-          "Do YYYY MMMM à LTS"
-        )}\n\`\`\`\n👤 **Auteur de la vidéo** : \`\`\`css\n${
-          songInfo.author.name
-        }\n\`\`\`\n🎵 **Compositeur** : \`\`\`fix\n${artist}\n\`\`\`\n🌐 **Lien** : ${
-          song.url
-        }`
-      );
+      const playEmbed = new MessageEmbed()
+        .setAuthor(
+          `Demandé par ${message.author.tag}`,
+          message.author.displayAvatarURL({ dynamic: true })
+        )
+        .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
+        .setColor("#99ddff")
+        .setFooter(
+          this.client.user.username + " ©",
+          this.client.user.displayAvatarURL()
+        )
+        .setTimestamp()
+        .setTitle("🎵 Musique")
+        .addField("▶ **En train d'être joué**", song.title)
+        .addField("\u200B", "\u200B")
+        .addField(
+          "📅 **Publié le**",
+          moment(songInfo.published).format("Do MMMM YYYY à LTS")
+        )
+        .addField(
+          "⏳ **Durée**",
+          moment
+            .utc(songInfo.player_response.videoDetails.lengthSeconds * 1000)
+            .format("H [h], m [min], s [secs]"),
+          true
+        )
+        .addField(
+          "👀 **Vues**",
+          songInfo.player_response.videoDetails.viewCount,
+          true
+        )
+        .addField("👤 **Auteur de la vidéo**", songInfo.author.name, true)
+
+        .addField("\u200B", "\u200B")
+        .addField("🎵 **Compositeur**", artist)
+        .addField("🌐 **Lien**", song.url);
+
+      queue.textChannel.send(playEmbed);
     };
 
     try {
@@ -107,7 +127,10 @@ class Play extends Command {
       queueConstruct.connection = connection;
       play(queueConstruct.songs[0]);
     } catch (error) {
-      console.error(`Je n'ai pas pu rejoindre le salon: ${error}`);
+      message.channel.send(
+        ":x: Une erreur est survenue lors du lancement de la musique !"
+      );
+      console.error(`Je n'ai pas pu rejoindre le salon: \n${error}`);
       message.client.queue.delete(message.guild.id);
       await voice.channel.leave();
     }
