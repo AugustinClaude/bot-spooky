@@ -9,7 +9,7 @@ class Npm extends Command {
     super(client, {
       name: "npm",
       description: "Affiche des informations à propos d'un module npm.",
-      usage: "npm <module>"
+      usage: "npm <module>",
     });
   }
 
@@ -31,7 +31,7 @@ class Npm extends Command {
         ? Object.keys(version.dependencies)
         : null;
       // Grab the list of maintainers.
-      let maintainers = body.maintainers.map(user => user.name);
+      let maintainers = body.maintainers.map((user) => user.name);
       const github = version.repository.url;
       const gitshort = github.slice(23, -4);
 
@@ -82,7 +82,7 @@ class Npm extends Command {
           true
         )
         .addField(
-          "● Date de modification",
+          "● Dernière modification",
           `${moment(new Date(body.time.modified)).format("L à LT")}`,
           true
         )

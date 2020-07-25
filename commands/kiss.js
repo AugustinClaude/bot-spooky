@@ -38,8 +38,8 @@ class Kiss extends Command {
       random = message.guild.members.cache.random().user.username;
     } else if (kissUser) random = kissUser.user.username;
 
-    try {
-      get("https://nekos.life/api/v2/img/kiss").then((res) => {
+    get("https://nekos.life/api/v2/img/kiss")
+      .then((res) => {
         kissEmbed
           .setColor("RANDOM")
           .setImage(res.body.url)
@@ -57,10 +57,11 @@ class Kiss extends Command {
           );
 
         return message.channel.send(kissEmbed);
+      })
+      .catch(() => {
+        console.error();
+        return message.channel.send(":x: Une erreur est survenue !");
       });
-    } catch (e) {
-      return message.channel.send(":x: Une erreur est survenue !");
-    }
   }
 }
 

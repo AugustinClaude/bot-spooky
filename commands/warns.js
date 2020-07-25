@@ -9,8 +9,8 @@ class Warns extends Command {
       name: "warns",
       description: "Affiche les infos à propos des warns d'un utilisateur",
       usage: "warns",
-      aliases: ["warnings", "warning"],
-      permLevel: "Mod"
+      aliases: ["warnings", "warning", "warnlist"],
+      permLevel: "Mod",
     });
   }
 
@@ -22,7 +22,7 @@ class Warns extends Command {
       warnUser = message.guild.member(
         message.mentions.users.first() ||
           message.guild.members.cache.get(args[0]) ||
-          this.client.users.cache.find(u =>
+          this.client.users.cache.find((u) =>
             u.tag.toLowerCase().includes(args[0].toLowerCase())
           )
       );
@@ -51,7 +51,7 @@ class Warns extends Command {
 
     let getWarnSetting = `SELECT * FROM warns WHERE guild_id = '${message.guild.id}' AND user_id = '${warnUser.id}';`;
 
-    db.query(getWarnSetting, function(err, results, fields) {
+    db.query(getWarnSetting, function (err, results, fields) {
       if (err) console.log(err.message);
       if (results[0] == undefined)
         warnEmbed.setDescription(":warning: Aucun warns");
@@ -65,14 +65,12 @@ class Warns extends Command {
           warnEmbed
             .addField("\u200B", "\u200B")
             .addField(
-              "❓ Raison",
+              `❓ Warn (ID: ${results[i].id})`,
               `${results[i].warn_reason} | ${moment(
                 results[i].createdAt
-              ).format("Do MMMM YYYY à LTS")}`
-            )
-            .addField(
-              "🌀 Warn par",
-              `${results[i].warner_name} (ID: ${results[i].warner_id})`
+              ).format("Do MMMM YYYY à LTS")}\n\n**Warn par :**\n${
+                results[i].warner_name
+              } (ID: ${results[i].warner_id})`
             );
         }
       }

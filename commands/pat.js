@@ -38,8 +38,8 @@ class Pat extends Command {
       random = message.guild.members.cache.random().user.username;
     } else if (patUser) random = patUser.user.username;
 
-    try {
-      get("https://nekos.life/api/v2/img/pat").then((res) => {
+    get("https://nekos.life/api/v2/img/pat")
+      .then((res) => {
         patEmbed
           .setColor("RANDOM")
           .setImage(res.body.url)
@@ -59,10 +59,11 @@ class Pat extends Command {
           );
 
         return message.channel.send(patEmbed);
+      })
+      .catch(() => {
+        console.error();
+        return message.channel.send(":x: Une erreur est survenue !");
       });
-    } catch (e) {
-      return message.channel.send(":x: Une erreur est survenue !");
-    }
   }
 }
 

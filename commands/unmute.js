@@ -9,7 +9,7 @@ class Unmute extends Command {
       name: "unmute",
       description: "Unmute un utilisateur",
       usage: "unmute <utilisateur> [raison]",
-      permLevel: "Staff"
+      permLevel: "Staff",
     });
   }
 
@@ -21,7 +21,7 @@ class Unmute extends Command {
       unmutedUser = message.guild.member(
         message.mentions.users.first() ||
           message.guild.members.cache.get(args[0]) ||
-          this.client.users.cache.find(u =>
+          this.client.users.cache.find((u) =>
             u.tag.toLowerCase().includes(args[0].toLowerCase())
           )
       );
@@ -63,7 +63,7 @@ class Unmute extends Command {
 
     let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
-    db.query(getGuildSetting, async function(err, results, fields) {
+    db.query(getGuildSetting, async function (err, results, fields) {
       if (err) console.log(err.message);
       //console.log(results);
       if (results[0] == undefined) return;
@@ -72,7 +72,7 @@ class Unmute extends Command {
         results[0].logChannel_id
       );
 
-      let muteRole = message.guild.roles.cache.find(n => n.name === "Mute");
+      let muteRole = message.guild.roles.cache.find((n) => n.name === "Mute");
       if (!muteRole)
         return message.channel.send(
           ":x: Il m'est impossible d'unmute cet utilisateur car je ne trouve pas le rôle de mute !"
@@ -89,7 +89,7 @@ class Unmute extends Command {
 
         if (logChannel) {
           logChannel.send(unmuteEmbed);
-        } else message.channel.send(`⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${this.client.config.defaultSettings.prefix}setlogs [#channel]\``);
+        } else message.channel.send(`⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${message.settings.prefix}setlogs <#channel>\``);
       } catch (e) {
         return message.channel.send(
           ":warning: Cet utilisateur n'est pas mute !"

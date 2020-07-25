@@ -11,7 +11,7 @@ class Mute extends Command {
       description:
         "Mute un utilisateur définitivement où pendant un temps donné",
       usage: "mute <utilisateur> [temps] [raison]",
-      permLevel: "Mod"
+      permLevel: "Mod",
     });
   }
 
@@ -23,7 +23,7 @@ class Mute extends Command {
       mutedUser = message.guild.member(
         message.mentions.users.first() ||
           message.guild.members.cache.get(args[0]) ||
-          this.client.users.cache.find(u =>
+          this.client.users.cache.find((u) =>
             u.tag.toLowerCase().includes(args[0].toLowerCase())
           )
       );
@@ -120,7 +120,7 @@ class Mute extends Command {
 
     let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
-    db.query(getGuildSetting, async function(err, results, fields) {
+    db.query(getGuildSetting, async function (err, results, fields) {
       if (err) console.log(err.message);
       //console.log(results);
       if (results[0] == undefined) return;
@@ -131,24 +131,24 @@ class Mute extends Command {
 
       if (logChannel) {
         logChannel.send(mutedEmbed);
-      } else message.channel.send(`⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${this.client.config.defaultSettings.prefix}setlogs [#channel]\``);
+      } else message.channel.send(`⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${message.settings.prefix}setlogs <#channel>\``);
 
-      let muteRole = message.guild.roles.cache.find(n => n.name === "Mute");
+      let muteRole = message.guild.roles.cache.find((n) => n.name === "Mute");
       if (!muteRole) {
         try {
           muteRole = await message.guild.roles.create({
             data: {
               name: "Mute",
               color: "#d83f3b",
-              permissions: []
-            }
+              permissions: [],
+            },
           });
           message.guild.channels.cache.forEach(async (channel, id) => {
             await channel.overwritePermissions([
               {
                 id: muteRole.id,
-                deny: ["SEND_MESSAGES", "ADD_REACTIONS"]
-              }
+                deny: ["SEND_MESSAGES", "ADD_REACTIONS"],
+              },
             ]);
           });
         } catch (e) {

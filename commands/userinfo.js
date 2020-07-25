@@ -8,7 +8,7 @@ class Userinfo extends Command {
       name: "userinfo",
       description: "Affiche des informations à propos d'un utilisateur",
       usage: "userinfo <utilisateur>",
-      aliases: ["ui", "user"]
+      aliases: ["ui", "user"],
     });
   }
 
@@ -21,7 +21,7 @@ class Userinfo extends Command {
       user = message.guild.member(
         message.mentions.users.first() ||
           message.guild.members.cache.get(args[0]) ||
-          this.client.users.cache.find(u =>
+          this.client.users.cache.find((u) =>
             u.tag.toLowerCase().includes(args[0].toLowerCase())
           )
       );
@@ -44,9 +44,9 @@ class Userinfo extends Command {
 
     let activity;
     for (let i = 0; i < user.presence.activities.length; i++) {
-      activity = `\`${user.presence.activities[i].state}\``;
+      activity = `\`${user.presence.activities[i].name}\``;
     }
-    if (activity == undefined) activity = ":x: Aucun jeu";
+    if (activity == undefined) activity = ":x: Aucune activité";
 
     let isBot;
     if (user.user.bot == true) isBot = "<:bot:679402162194743306>";
@@ -73,9 +73,9 @@ class Userinfo extends Command {
     if (nbRoles == 0) roles = ":x: Aucun rôle";
     else {
       roles = `${user.roles.cache
-        .filter(r => r.id !== message.guild.id)
+        .filter((r) => r.id !== message.guild.id)
         .array()
-        .map(g => g)
+        .map((g) => g)
         .join(", ")}`;
 
       if (roles.length > 1024) {
@@ -91,7 +91,7 @@ class Userinfo extends Command {
     const joinedSorted = message.guild.members.cache
       .array()
       .sort((a, b) => a.joinedTimestamp - b.joinedTimestamp)
-      .map(g => g.user.username);
+      .map((g) => g.user.username);
 
     let arrivalPosition;
     let orderArrival;
@@ -130,7 +130,7 @@ class Userinfo extends Command {
         .addField("🏷️ Surnom", nickname, true)
         .addField("✏️ ID", id, true)
         .addField("⚙️ Statut", status, true)
-        .addField("🎮 Jeu", activity, true)
+        .addField("🎮 Activité", activity, true)
         .addField("\u200B", "\u200B")
         .addField(
           `<:bing_slime:585135069908434944> ${

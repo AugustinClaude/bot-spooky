@@ -38,8 +38,8 @@ class Insult extends Command {
       random = message.guild.members.cache.random().user.username;
     } else if (insultUser) random = insultUser.user.username;
 
-    try {
-      get("https://nekos.life/api/v2/img/baka").then((res) => {
+    get("https://nekos.life/api/v2/img/baka")
+      .then((res) => {
         insultEmbed
           .setColor("RANDOM")
           .setImage(res.body.url)
@@ -59,10 +59,11 @@ class Insult extends Command {
           );
 
         return message.channel.send(insultEmbed);
+      })
+      .catch(() => {
+        console.error();
+        return message.channel.send(":x: Une erreur est survenue !");
       });
-    } catch (e) {
-      return message.channel.send(":x: Une erreur est survenue !");
-    }
   }
 }
 

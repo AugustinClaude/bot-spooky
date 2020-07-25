@@ -8,13 +8,13 @@ class Lizard extends Command {
       name: "lizard",
       description: "Affiche une image de lézard aléatoire",
       usage: `lizard`,
-      aliases: ["lezard"]
+      aliases: ["lezard"],
     });
   }
 
   run(message, args) {
-    try {
-      get("https://nekos.life/api/v2/img/lizard").then(res => {
+    get("https://nekos.life/api/v2/img/lizard")
+      .then((res) => {
         const lizardEmbed = new MessageEmbed()
           .setColor("#eeaa22")
           .setTitle("🦎 Lézard")
@@ -26,10 +26,11 @@ class Lizard extends Command {
           .setTimestamp();
 
         return message.channel.send(lizardEmbed);
+      })
+      .catch(() => {
+        console.error();
+        return message.channel.send(":x: Une erreur est survenue !");
       });
-    } catch (e) {
-      return message.channel.send(":x: Une erreur est survenue !");
-    }
   }
 }
 

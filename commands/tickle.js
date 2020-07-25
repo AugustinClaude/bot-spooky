@@ -38,8 +38,8 @@ class Tickle extends Command {
       random = message.guild.members.cache.random().user.username;
     } else if (tickleUser) random = tickleUser.user.username;
 
-    try {
-      get("https://nekos.life/api/v2/img/tickle").then((res) => {
+    get("https://nekos.life/api/v2/img/tickle")
+      .then((res) => {
         tickleEmbed
           .setColor("RANDOM")
           .setImage(res.body.url)
@@ -59,10 +59,11 @@ class Tickle extends Command {
           );
 
         return message.channel.send(tickleEmbed);
+      })
+      .catch(() => {
+        console.error();
+        return message.channel.send(":x: Une erreur est survenue !");
       });
-    } catch (e) {
-      return message.channel.send(":x: Une erreur est survenue !");
-    }
   }
 }
 

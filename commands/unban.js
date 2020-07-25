@@ -9,7 +9,7 @@ class Unban extends Command {
       name: "unban",
       description: "Unban un utilisateur grâce à son ID",
       usage: "unban <id> [raison]",
-      permLevel: "Staff"
+      permLevel: "Staff",
     });
   }
 
@@ -22,7 +22,7 @@ class Unban extends Command {
       userInGuild = message.guild.member(
         message.mentions.users.first() ||
           message.guild.members.cache.get(args[0]) ||
-          this.client.users.cache.find(u =>
+          this.client.users.cache.find((u) =>
             u.tag.toLowerCase().includes(args[0].toLowerCase())
           )
       );
@@ -73,7 +73,7 @@ class Unban extends Command {
 
     let channel = message.guild.channels.cache
       .filter(
-        channel =>
+        (channel) =>
           channel.type === "text" &&
           channel
             .permissionsFor(message.guild.me)
@@ -83,7 +83,7 @@ class Unban extends Command {
     let link;
     const invite = await channel
       .createInvite({ maxAge: 0, maxUses: 0 })
-      .then(invite => {
+      .then((invite) => {
         link = invite.code;
       });
 
@@ -91,7 +91,7 @@ class Unban extends Command {
 
     let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
-    db.query(getGuildSetting, async function(err, results, fields) {
+    db.query(getGuildSetting, async function (err, results, fields) {
       if (err) console.log(err.message);
       //console.log(results);
       if (results[0] == undefined) return;
@@ -111,7 +111,7 @@ class Unban extends Command {
 
         if (logChannel) {
           logChannel.send(unbanEmbed);
-        } else message.channel.send(`⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${this.client.config.defaultSettings.prefix}setlogs [#channel]\``);
+        } else message.channel.send(`⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${message.settings.prefix}setlogs <#channel>\``);
       } catch (e) {
         return message.channel.send(
           ":warning: Cet utilisateur n'est pas banni !"

@@ -9,7 +9,7 @@ class Kick extends Command {
       name: "kick",
       description: "Kick un utilisateur",
       usage: "kick <utilisateur> [raison]",
-      permLevel: "Mod"
+      permLevel: "Mod",
     });
   }
 
@@ -21,7 +21,7 @@ class Kick extends Command {
       kickedUser = message.guild.member(
         message.mentions.users.first() ||
           message.guild.members.cache.get(args[0]) ||
-          this.client.users.cache.find(u =>
+          this.client.users.cache.find((u) =>
             u.tag.toLowerCase().includes(args[0].toLowerCase())
           )
       );
@@ -77,7 +77,7 @@ class Kick extends Command {
 
     let channel = message.guild.channels.cache
       .filter(
-        channel =>
+        (channel) =>
           channel.type === "text" &&
           channel
             .permissionsFor(message.guild.me)
@@ -87,7 +87,7 @@ class Kick extends Command {
     let link;
     const invite = await channel
       .createInvite({ maxAge: 0, maxUses: 0 })
-      .then(invite => {
+      .then((invite) => {
         link = invite.code;
       });
 
@@ -95,7 +95,7 @@ class Kick extends Command {
 
     let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
-    db.query(getGuildSetting, function(err, results, fields) {
+    db.query(getGuildSetting, function (err, results, fields) {
       if (err) console.log(err.message);
       //console.log(results);
       if (results[0] == undefined) return;
@@ -106,7 +106,7 @@ class Kick extends Command {
 
       if (logChannel) {
         logChannel.send(kickedEmbed);
-      } else message.channel.send(`⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${this.client.config.defaultSettings.prefix}setlogs [#channel]\``);
+      } else message.channel.send(`⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${message.settings.prefix}setlogs <#channel>\``);
 
       message.guild.member(kickedUser).kick(kickedReason);
       message.channel.send(

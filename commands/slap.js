@@ -38,8 +38,8 @@ class Slap extends Command {
       random = message.guild.members.cache.random().user.username;
     } else if (slapUser) random = slapUser.user.username;
 
-    try {
-      get("https://nekos.life/api/v2/img/slap").then((res) => {
+    get("https://nekos.life/api/v2/img/slap")
+      .then((res) => {
         slapEmbed
           .setColor("RANDOM")
           .setImage(res.body.url)
@@ -59,10 +59,11 @@ class Slap extends Command {
           );
 
         return message.channel.send(slapEmbed);
+      })
+      .catch(() => {
+        console.error();
+        return message.channel.send(":x: Une erreur est survenue !");
       });
-    } catch (e) {
-      return message.channel.send(":x: Une erreur est survenue !");
-    }
   }
 }
 

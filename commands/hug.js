@@ -38,8 +38,8 @@ class Hug extends Command {
       random = message.guild.members.cache.random().user.username;
     } else if (hugUser) random = hugUser.user.username;
 
-    try {
-      get("https://nekos.life/api/v2/img/hug").then((res) => {
+    get("https://nekos.life/api/v2/img/hug")
+      .then((res) => {
         hugEmbed
           .setColor("RANDOM")
           .setImage(res.body.url)
@@ -59,10 +59,11 @@ class Hug extends Command {
           );
 
         return message.channel.send(hugEmbed);
+      })
+      .catch(() => {
+        console.error();
+        return message.channel.send(":x: Une erreur est survenue !");
       });
-    } catch (e) {
-      return message.channel.send(":x: Une erreur est survenue !");
-    }
   }
 }
 

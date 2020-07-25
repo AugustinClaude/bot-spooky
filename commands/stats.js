@@ -9,7 +9,7 @@ class Stats extends Command {
       name: "stats",
       description: "Affiche les statistiques du bot",
       usage: "stats",
-      aliases: ["stat", "statistics"]
+      aliases: ["stat", "statistics"],
     });
   }
 
@@ -20,10 +20,10 @@ class Stats extends Command {
 
     const users = [];
     let nb = 0;
-    this.client.guilds.cache.array().forEach(guild => {
+    this.client.guilds.cache.array().forEach((guild) => {
       users.push(guild.memberCount);
     });
-    users.forEach(n => {
+    users.forEach((n) => {
       nb += n;
     });
 
@@ -46,7 +46,7 @@ class Stats extends Command {
         `**${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}** MB`,
         true
       )
-      .addField("⬆ Uptime", `**${duration}**`, true)
+      .addField("⬆ Uptime", `${duration}`, true)
       .addField("\u200B", "\u200B")
       .addField("🍪 Utilisateurs", `**${nb.toLocaleString()}**`, true)
       .addField(
@@ -60,8 +60,8 @@ class Stats extends Command {
         true
       )
       .addField("\u200B", "\u200B")
-      .addField("📋 Discord.js Version", `**v${version}**`, true)
-      .addField("📄 Node Version", `**${process.version}**`, true);
+      .addField("📋 Discord.js Version", `v${version}`, true)
+      .addField("📄 Node Version", `${process.version}`, true);
     message.channel.send(statsEmbed);
   }
 }

@@ -8,13 +8,13 @@ class Dog extends Command {
       name: "dog",
       description: "Affiche une image de chien aléatoire",
       usage: `dog`,
-      aliases: ["chien"]
+      aliases: ["dogs", "chien"],
     });
   }
 
   run(message, args) {
-    try {
-      get("https://random.dog/woof.json").then(res => {
+    get("https://random.dog/woof.json")
+      .then((res) => {
         const dogEmbed = new MessageEmbed()
           .setColor("#eeaa22")
           .setTitle("🐶 Chien")
@@ -26,10 +26,11 @@ class Dog extends Command {
           .setTimestamp();
 
         return message.channel.send(dogEmbed);
+      })
+      .catch(() => {
+        console.error();
+        return message.channel.send(":x: Une erreur est survenue !");
       });
-    } catch (e) {
-      return message.channel.send(":x: Une erreur est survenue !");
-    }
   }
 }
 

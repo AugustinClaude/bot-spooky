@@ -8,15 +8,13 @@ class Cat extends Command {
       name: "cat",
       description: "Affiche une image de chat aléatoire",
       usage: `cat`,
-      aliases: ["chat"]
+      aliases: ["cats", "chat"],
     });
   }
 
   run(message, args) {
-    try {
-      get(
-        "https://aws.random.cat/meow" || "https://nekos.life/api/v2/img/meow"
-      ).then(res => {
+    get("https://nekos.life/api/v2/img/meow" || "https://aws.random.cat/meow")
+      .then((res) => {
         const catEmbed = new MessageEmbed()
           .setColor("#88aa44")
           .setTitle("🐱 Chat")
@@ -28,10 +26,11 @@ class Cat extends Command {
           .setTimestamp();
 
         return message.channel.send(catEmbed);
+      })
+      .catch(() => {
+        console.error();
+        return message.channel.send(":x: Une erreur est survenue !");
       });
-    } catch (e) {
-      return message.channel.send(":x: Une erreur est survenue !");
-    }
   }
 }
 

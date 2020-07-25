@@ -2,13 +2,13 @@ const Command = require("../modules/Command.js");
 const math = require("mathjs");
 const { MessageEmbed } = require("discord.js");
 
-class Math extends Command {
+class Maths extends Command {
   constructor(client) {
     super(client, {
-      name: "math",
+      name: "maths",
       description: "Affiche le résultat d'un calcul",
-      usage: "math <calcul>",
-      aliases: ["maths", "calcul"]
+      usage: "maths <calcul>",
+      aliases: ["math", "calcul"],
     });
   }
 
@@ -45,4 +45,4 @@ class Math extends Command {
   }
 }
 
-module.exports = Math;
+module.exports = Maths;

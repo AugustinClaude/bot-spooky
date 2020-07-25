@@ -78,9 +78,9 @@ class Play extends Command {
         .on("error", (error) => console.error(error));
       dispatcher.setVolumeLogarithmic(queue.volume / 5);
 
-      var artist = songInfo.media.artist;
+      let artist = songInfo.media.artist;
       if (!artist)
-        artist = "❌ Je n'ai pas trouvé d'artiste pour cette musique !";
+        artist = "❌ Je n'ai pas trouvé le compositeur de cette musique !";
 
       const playEmbed = new MessageEmbed()
         .setAuthor(

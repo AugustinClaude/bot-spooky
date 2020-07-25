@@ -9,7 +9,7 @@ class Warn extends Command {
       name: "warn",
       description: "Warn un utilisateur",
       usage: "warn <utilisateur> [raison]",
-      permLevel: "Mod"
+      permLevel: "Mod",
     });
   }
 
@@ -21,7 +21,7 @@ class Warn extends Command {
       warnUser = message.guild.member(
         message.mentions.users.first() ||
           message.guild.members.cache.get(args[0]) ||
-          this.client.users.cache.find(u =>
+          this.client.users.cache.find((u) =>
             u.tag.toLowerCase().includes(args[0].toLowerCase())
           )
       );
@@ -64,7 +64,7 @@ class Warn extends Command {
 
     let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
-    db.query(getGuildSetting, async function(err, results, fields) {
+    db.query(getGuildSetting, async function (err, results, fields) {
       if (err) console.log(err.message);
       //console.log(results);
       if (results[0] == undefined) return;
@@ -75,7 +75,7 @@ class Warn extends Command {
 
       if (logChannel) {
         logChannel.send(warnEmbed);
-      } else message.channel.send(`⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${this.client.config.defaultSettings.prefix}setlogs [#channel]\``);
+      } else message.channel.send(`⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${message.settings.prefix}setlogs <#channel>\``);
 
       message.channel.send(
         `:white_check_mark: **${warnUser.user.username}** a été **warn** avec succès pour la raison suivante :\n\`${warnReason}\``
@@ -88,7 +88,7 @@ class Warn extends Command {
     // Stockage des warns dans la db
 
     let setWarnSettings = `INSERT INTO warns(guild_id, guild_name, user_id, user_name, warn_reason, warner_id, warner_name) VALUES('${message.guild.id}', '${message.guild.name}', '${warnUser.id}', '${warnUser.user.username}', '${warnReason}', '${message.author.id}', '${message.author.username}')`;
-    db.query(setWarnSettings, async function(err, results, fields) {
+    db.query(setWarnSettings, async function (err, results, fields) {
       if (err) console.log(err.message);
       //console.log(results);
     });

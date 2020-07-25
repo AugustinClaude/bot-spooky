@@ -1,11 +1,11 @@
-var mysql = require("mysql");
+let mysql = require("mysql");
 
-var dbinfos = {
+let dbinfos = {
   host: process.env.DB_HOST,
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_USERNAME,
-  charset: "utf8mb4_bin"
+  charset: "utf8mb4_bin",
 };
 
 function handleDisconnect() {

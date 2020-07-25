@@ -38,8 +38,8 @@ class Feed extends Command {
       random = message.guild.members.cache.random().user.username;
     } else if (feedUser) random = feedUser.user.username;
 
-    try {
-      get("https://nekos.life/api/v2/img/feed").then((res) => {
+    get("https://nekos.life/api/v2/img/feed")
+      .then((res) => {
         feedEmbed
           .setColor("RANDOM")
           .setImage(res.body.url)
@@ -59,10 +59,11 @@ class Feed extends Command {
           );
 
         return message.channel.send(feedEmbed);
+      })
+      .catch(() => {
+        console.error();
+        return message.channel.send(":x: Une erreur est survenue !");
       });
-    } catch (e) {
-      return message.channel.send(":x: Une erreur est survenue !");
-    }
   }
 }
 
