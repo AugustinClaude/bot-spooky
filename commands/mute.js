@@ -12,6 +12,7 @@ class Mute extends Command {
         "Mute un utilisateur définitivement où pendant un temps donné",
       usage: "mute <utilisateur> [temps] [raison]",
       permLevel: "Mod",
+      clientPermissions: ["MANAGE_ROLES"],
     });
   }
 

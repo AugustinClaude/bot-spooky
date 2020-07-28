@@ -7,7 +7,8 @@ class Setprefix extends Command {
       name: "setprefix",
       description: "Setup le préfix du bot",
       usage: "setprefix <prefix / default>",
-      permLevel: "Staff"
+      permLevel: "Staff",
+      clientPermissions: ["ADD_REACTIONS"],
     });
   }
 
@@ -19,11 +20,11 @@ class Setprefix extends Command {
 
       let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
-      db.query(getGuildSetting, function(err, result, fields) {
+      db.query(getGuildSetting, function (err, result, fields) {
         if (err) console.log(err.message);
 
         let getDefaultPrefix = `SELECT DEFAULT( prefix ) FROM guildSettings WHERE guildId = '${message.guild.id}';`;
-        db.query(getDefaultPrefix, function(err, results, fields) {
+        db.query(getDefaultPrefix, function (err, results, fields) {
           if (err) console.log(err.message);
 
           if (result[0].prefix == results[0]["DEFAULT( prefix )"])
@@ -41,7 +42,7 @@ class Setprefix extends Command {
 
       let setPrefix = `UPDATE guildSettings SET prefix = DEFAULT WHERE guildSettings.guildId = '${message.guild.id}';`;
 
-      db.query(setPrefix, function(err, results, fields) {
+      db.query(setPrefix, function (err, results, fields) {
         if (err) {
           console.log(err.message);
         }
@@ -51,7 +52,7 @@ class Setprefix extends Command {
 
       let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
-      db.query(getGuildSetting, async function(err, results, fields) {
+      db.query(getGuildSetting, async function (err, results, fields) {
         if (err) console.log(err.message);
         //console.log(results);
         if (results[0] == undefined) return;
@@ -79,15 +80,15 @@ class Setprefix extends Command {
           m.awaitReactions(filter, {
             max: 1,
             time: 30000,
-            errors: ["time"]
-          }).then(collected => {
+            errors: ["time"],
+          }).then((collected) => {
             const reaction = collected.first();
             if (reaction.emoji.name === "✅") {
               // Stockage du prefix dans base de donnée
 
               let setPrefix = `UPDATE guildSettings SET prefix = '${args[0]}' WHERE guildSettings.guildId = '${message.guild.id}';`;
 
-              db.query(setPrefix, function(err, results, fields) {
+              db.query(setPrefix, function (err, results, fields) {
                 if (err) {
                   console.log(err.message);
                 }
@@ -100,7 +101,7 @@ class Setprefix extends Command {
               m.edit(prefixConf);
             }
 
-            m.reactions.cache.forEach(r => r.remove());
+            m.reactions.cache.forEach((r) => r.remove());
           });
         } catch (e) {
           return message.channel.send(

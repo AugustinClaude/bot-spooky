@@ -12,6 +12,7 @@ class Play extends Command {
       name: "play",
       description: "Joue une musique dans un salon vocal",
       usage: `play <lien / recherche>`,
+      clientPermissions: ["SPEAK", "CONNECT"],
     });
   }
 

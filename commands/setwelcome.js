@@ -7,8 +7,9 @@ class Setwelcome extends Command {
       name: "setwelcome",
       description: "Setup un channel de bienvenue ou le désactive",
       usage: "setwelcome <#channel / off>",
-      aliases: ["setwelcome", "setupwelcome", "setwelcomechannel", "setwc"],
-      permLevel: "Staff"
+      aliases: ["setupwelcome", "setwelcomechannel", "setwc"],
+      permLevel: "Staff",
+      clientPermissions: ["ADD_REACTIONS"],
     });
   }
 
@@ -22,7 +23,7 @@ class Setwelcome extends Command {
 
       let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
-      db.query(getGuildSetting, function(err, results, fields) {
+      db.query(getGuildSetting, function (err, results, fields) {
         if (err) console.log(err.message);
         if (
           results[0].welcomeChannel_id == undefined ||
@@ -41,7 +42,7 @@ class Setwelcome extends Command {
 
       let setWelcomeChannelId = `UPDATE guildSettings SET welcomeChannel_id = DEFAULT WHERE guildSettings.guildId = '${message.guild.id}';`;
 
-      db.query(setWelcomeChannelId, function(err, results, fields) {
+      db.query(setWelcomeChannelId, function (err, results, fields) {
         if (err) {
           console.log(err.message);
         }
@@ -49,14 +50,14 @@ class Setwelcome extends Command {
 
       let setWelcomeChannelName = `UPDATE guildSettings SET welcomeChannel_name = DEFAULT WHERE guildSettings.guildId = '${message.guild.id}';`;
 
-      db.query(setWelcomeChannelName, function(err, results, fields) {
+      db.query(setWelcomeChannelName, function (err, results, fields) {
         if (err) {
           console.log(err.message);
         }
       });
     } else {
       let channelID = args[0].slice(2, -1);
-      let channel = message.guild.channels.cache.find(n => n.id == channelID);
+      let channel = message.guild.channels.cache.find((n) => n.id == channelID);
 
       if (!channel)
         return message.channel.send(":x: Ce channel n'existe pas !");
@@ -65,7 +66,7 @@ class Setwelcome extends Command {
 
       let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
-      db.query(getGuildSetting, async function(err, results, fields) {
+      db.query(getGuildSetting, async function (err, results, fields) {
         if (err) console.log(err.message);
         //console.log(results);
         if (results[0] == undefined) return;
@@ -105,15 +106,15 @@ class Setwelcome extends Command {
             m.awaitReactions(filter, {
               max: 1,
               time: 30000,
-              errors: ["time"]
-            }).then(collected => {
+              errors: ["time"],
+            }).then((collected) => {
               const reaction = collected.first();
               if (reaction.emoji.name === "✅") {
                 // Stockage de channel dans base de donnée
 
                 let setWelcomeChannelId = `UPDATE guildSettings SET welcomeChannel_id = '${channel.id}' WHERE guildSettings.guildId = '${message.guild.id}';`;
 
-                db.query(setWelcomeChannelId, function(err, results, fields) {
+                db.query(setWelcomeChannelId, function (err, results, fields) {
                   if (err) {
                     console.log(err.message);
                   }
@@ -121,7 +122,11 @@ class Setwelcome extends Command {
 
                 let setWelcomeChannelName = `UPDATE guildSettings SET welcomeChannel_name = '${channel.name}' WHERE guildSettings.guildId = '${message.guild.id}';`;
 
-                db.query(setWelcomeChannelName, function(err, results, fields) {
+                db.query(setWelcomeChannelName, function (
+                  err,
+                  results,
+                  fields
+                ) {
                   if (err) {
                     console.log(err.message);
                   }
@@ -134,7 +139,7 @@ class Setwelcome extends Command {
                 m.edit(welcomeChannelConf);
               }
 
-              m.reactions.cache.forEach(r => r.remove());
+              m.reactions.cache.forEach((r) => r.remove());
             });
           } catch (e) {
             return message.channel.send(

@@ -10,6 +10,7 @@ class Unmute extends Command {
       description: "Unmute un utilisateur",
       usage: "unmute <utilisateur> [raison]",
       permLevel: "Staff",
+      clientPermissions: ["MANAGE_ROLES"],
     });
   }
 

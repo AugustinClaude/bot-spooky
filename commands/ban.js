@@ -12,6 +12,7 @@ class Ban extends Command {
         "Ban un utilisateur définitivement où pendant un temps donné",
       usage: "ban <utilisateur> [temps] [raison]",
       permLevel: "Staff",
+      clientPermissions: ["CREATE_INSTANT_INVITE", "BAN_MEMBERS"],
     });
   }
 

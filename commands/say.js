@@ -6,7 +6,8 @@ class Say extends Command {
       name: "say",
       description: "Me fait parler",
       usage: "say <message>",
-      permLevel: "Mod"
+      permLevel: "Mod",
+      clientPermissions: ["MANAGE_MESSAGES"],
     });
   }
 

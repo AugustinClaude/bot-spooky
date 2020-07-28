@@ -7,7 +7,8 @@ class Clear extends Command {
       description: "Supprime un nombre de messages donné",
       usage: "clear <nb de messages>",
       permLevel: "Mod",
-      aliases: ["purge"]
+      aliases: ["purge"],
+      clientPermissions: ["MANAGE_MESSAGES"],
     });
   }
 
@@ -15,9 +16,9 @@ class Clear extends Command {
     if (args > 500)
       return message
         .reply(
-          "❌ Vous ne pouvez pas clear plus de **500 messages** en une fois."
+          "❌ Vous ne pouvez pas clear plus de **500 messages** à la fois."
         )
-        .then(msg => msg.delete({ timeout: 5000 }));
+        .then((msg) => msg.delete({ timeout: 5000 }));
 
     if (isNaN(args[0]) || !args[0])
       return message.reply(
@@ -29,7 +30,7 @@ class Clear extends Command {
         message.channel.bulkDelete(1);
         message.channel
           .send(`🗑 J'ai supprimé ***${args[0]} messages*** avec succès !`)
-          .then(msg => msg.delete({ timeout: 2000 }));
+          .then((msg) => msg.delete({ timeout: 2000 }));
       });
     } catch (e) {
       console.log(e);
@@ -37,7 +38,7 @@ class Clear extends Command {
         .send(
           "❌ Je ne peux pas supprimer des messages datant de plus de **14 jours** !"
         )
-        .then(msg => msg.delete({ timeout: 5000 }));
+        .then((msg) => msg.delete({ timeout: 5000 }));
     }
   }
 }

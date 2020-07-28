@@ -13,9 +13,9 @@ class Setlogs extends Command {
         "setuplog",
         "setlogschannel",
         "setlogchannel",
-        "setup"
       ],
-      permLevel: "Staff"
+      permLevel: "Staff",
+      clientPermissions: ["ADD_REACTIONS"],
     });
   }
 
@@ -29,7 +29,7 @@ class Setlogs extends Command {
 
       let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
-      db.query(getGuildSetting, function(err, results, fields) {
+      db.query(getGuildSetting, function (err, results, fields) {
         if (err) console.log(err.message);
         if (
           results[0].logChannel_id == undefined ||
@@ -48,7 +48,7 @@ class Setlogs extends Command {
 
       let setLogChannelId = `UPDATE guildSettings SET logChannel_id = DEFAULT WHERE guildSettings.guildId = '${message.guild.id}';`;
 
-      db.query(setLogChannelId, function(err, results, fields) {
+      db.query(setLogChannelId, function (err, results, fields) {
         if (err) {
           console.log(err.message);
         }
@@ -56,14 +56,14 @@ class Setlogs extends Command {
 
       let setLogChannelName = `UPDATE guildSettings SET logChannel_name = DEFAULT WHERE guildSettings.guildId = '${message.guild.id}';`;
 
-      db.query(setLogChannelName, function(err, results, fields) {
+      db.query(setLogChannelName, function (err, results, fields) {
         if (err) {
           console.log(err.message);
         }
       });
     } else {
       let channelID = args[0].slice(2, -1);
-      let channel = message.guild.channels.cache.find(n => n.id == channelID);
+      let channel = message.guild.channels.cache.find((n) => n.id == channelID);
 
       if (!channel)
         return message.channel.send(":x: Ce channel n'existe pas !");
@@ -72,7 +72,7 @@ class Setlogs extends Command {
 
       let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
-      db.query(getGuildSetting, async function(err, results, fields) {
+      db.query(getGuildSetting, async function (err, results, fields) {
         if (err) console.log(err.message);
         //console.log(results);
         if (results[0] == undefined) return;
@@ -112,15 +112,15 @@ class Setlogs extends Command {
             m.awaitReactions(filter, {
               max: 1,
               time: 30000,
-              errors: ["time"]
-            }).then(collected => {
+              errors: ["time"],
+            }).then((collected) => {
               const reaction = collected.first();
               if (reaction.emoji.name === "✅") {
                 // Stockage de channel dans base de donnée
 
                 let setLogChannelId = `UPDATE guildSettings SET logChannel_id = '${channel.id}' WHERE guildSettings.guildId = '${message.guild.id}';`;
 
-                db.query(setLogChannelId, function(err, results, fields) {
+                db.query(setLogChannelId, function (err, results, fields) {
                   if (err) {
                     console.log(err.message);
                   }
@@ -128,7 +128,7 @@ class Setlogs extends Command {
 
                 let setLogChannelName = `UPDATE guildSettings SET logChannel_name = '${channel.name}' WHERE guildSettings.guildId = '${message.guild.id}';`;
 
-                db.query(setLogChannelName, function(err, results, fields) {
+                db.query(setLogChannelName, function (err, results, fields) {
                   if (err) {
                     console.log(err.message);
                   }
@@ -141,7 +141,7 @@ class Setlogs extends Command {
                 m.edit(logChannelConf);
               }
 
-              m.reactions.cache.forEach(r => r.remove());
+              m.reactions.cache.forEach((r) => r.remove());
             });
           } catch (e) {
             return message.channel.send(

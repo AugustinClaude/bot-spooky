@@ -10,6 +10,7 @@ class Kick extends Command {
       description: "Kick un utilisateur",
       usage: "kick <utilisateur> [raison]",
       permLevel: "Mod",
+      clientPermissions: ["CREATE_INSTANT_INVITE", "KICK_MEMBERS"],
     });
   }
 

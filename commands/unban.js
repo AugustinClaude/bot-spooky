@@ -10,6 +10,7 @@ class Unban extends Command {
       description: "Unban un utilisateur grâce à son ID",
       usage: "unban <id> [raison]",
       permLevel: "Staff",
+      clientPermissions: ["CREATE_INSTANT_INVITE", "BAN_MEMBERS"],
     });
   }
 
