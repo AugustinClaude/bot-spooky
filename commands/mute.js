@@ -42,8 +42,14 @@ class Mute extends Command {
           "ADMINISTRATOR"
       )
     ) {
-      return message.reply(":x: Vous ne pouvez pas mute cette personne !");
+      return message.channel.send(
+        ":x: Vous ne pouvez pas mute cette personne !"
+      );
     }
+
+    let muteRole = message.guild.roles.cache.find((n) => n.name === "Mute");
+    if (mutedUser.roles.cache.has(muteRole.id))
+      return message.channel.send(":x: Cette personne est déjà mute !");
 
     let TimeUntilUnmute = false;
     let mutedReason;
@@ -133,7 +139,6 @@ class Mute extends Command {
         logChannel.send(mutedEmbed);
       } else message.channel.send(`⚠️ Vous n'avez setup aucun channel de logs. Je ne peux donc pas envoyer le message de logs. Vous pouvez le faire avec la commande \`${message.settings.prefix}setlogs <#channel>\``);
 
-      let muteRole = message.guild.roles.cache.find((n) => n.name === "Mute");
       if (!muteRole) {
         try {
           muteRole = await message.guild.roles.create({
