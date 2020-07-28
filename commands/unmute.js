@@ -78,6 +78,11 @@ class Unmute extends Command {
           ":x: Il m'est impossible d'unmute cet utilisateur car je ne trouve pas le rôle de mute !"
         );
 
+      if (!unmutedUser.roles.cache.has(muteRole.id))
+        return message.channel.send(
+          ":warning: Cet utilisateur n'est pas mute !"
+        );
+
       try {
         await unmutedUser.roles.remove(muteRole.id);
         message.channel.send(

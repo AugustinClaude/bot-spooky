@@ -49,7 +49,7 @@ class Mute extends Command {
 
     let muteRole = message.guild.roles.cache.find((n) => n.name === "Mute");
     if (mutedUser.roles.cache.has(muteRole.id))
-      return message.channel.send(":x: Cette personne est déjà mute !");
+      return message.channel.send(":warning: Cette personne est déjà mute !");
 
     let TimeUntilUnmute = false;
     let mutedReason;
@@ -169,19 +169,21 @@ class Mute extends Command {
         `:warning: Vous avez été  🔇 **mute**  du serveur **${message.guild.name}** pendant ${muteTime_Txt} par **${message.author.username}** pour la raison suivante :\n\`${mutedReason}\``
       );
 
-      if (TimeUntilUnmute == true && mutedUser.roles.cache.has(muteRole.id)) {
-        setTimeout(() => {
-          mutedUser.roles.remove(muteRole.id);
+      setTimeout(() => {
+        if (TimeUntilUnmute == true && mutedUser.roles.cache.has(muteRole.id)) {
+          setTimeout(() => {
+            mutedUser.roles.remove(muteRole.id);
 
-          message.channel.send(
-            `:white_check_mark: **${mutedUser.user.username}** a été  🔊 **unmute**  car son mute a expiré`
-          );
-          mutedUser.send(
-            `:white_check_mark: Vous avez été  🔊 **unmute**  du serveur **${message.guild.name}** car votre mute a expiré`
-          );
-          if (logChannel) logChannel.send(unmuteEmbed);
-        }, ms(args[1]));
-      }
+            message.channel.send(
+              `:white_check_mark: **${mutedUser.user.username}** a été  🔊 **unmute**  car son mute a expiré`
+            );
+            mutedUser.send(
+              `:white_check_mark: Vous avez été  🔊 **unmute**  du serveur **${message.guild.name}** car votre mute a expiré`
+            );
+            if (logChannel) logChannel.send(unmuteEmbed);
+          }, ms(args[1]) - 1000);
+        }
+      }, 1000);
     });
   }
 }
