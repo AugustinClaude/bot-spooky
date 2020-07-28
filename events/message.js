@@ -187,6 +187,22 @@ module.exports = class {
         message.flags.push(args.shift().slice(1));
       }
 
+      // Check des permissions du bot
+      let missingPermissions = [];
+      cmd.conf.clientPermissions.forEach((neededPerm) => {
+        if (!message.channel.permissionsFor(message.guild.me).has(neededPerm)) {
+          missingPermissions.push(neededPerm);
+        }
+      });
+
+      if (missingPermissions[0]) {
+        return message.channel.send(
+          `:x: Je ne peux pas exécuter cette commande car il me manque ces permissions :\n\`${missingPermissions
+            .map((p) => "`" + p + "`")
+            .join(", ")}\``
+        );
+      }
+
       // Lancement de la commande
       this.client.logger.log(
         `${message.guild.name} | #${message.channel.name}:\n[${

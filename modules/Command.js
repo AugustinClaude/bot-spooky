@@ -9,11 +9,12 @@ class Command {
       enabled = true,
       guildOnly = false,
       aliases = new Array(),
-      permLevel = "Member"
+      permLevel = "Member",
+      clientPermissions = new Array(),
     }
   ) {
     this.client = client;
-    this.conf = { enabled, guildOnly, aliases, permLevel };
+    this.conf = { enabled, guildOnly, aliases, permLevel, clientPermissions };
     this.help = { name, description, category, usage };
   }
 }
