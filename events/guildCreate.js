@@ -1,4 +1,4 @@
-const db = require("../db.js");
+const db = require("../db/db.js");
 
 module.exports = class {
   constructor(client) {
@@ -9,7 +9,7 @@ module.exports = class {
     // Paramètres DB
     let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${guild.id}';`;
 
-    db.query(getGuildSetting, function(err, results, fields) {
+    db.query(getGuildSetting, function (err, results, fields) {
       if (err) console.log(err.message);
       //console.log(results);
       if (results[0] == undefined) {
@@ -19,7 +19,7 @@ module.exports = class {
 
         let setDefaultSettings = `INSERT INTO guildSettings(guildId, guildName) VALUES('${guild.id}', '${guild.name}')`;
 
-        db.query(setDefaultSettings, function(err, results, fields) {
+        db.query(setDefaultSettings, function (err, results, fields) {
           if (err) console.log(err.message);
         });
       }
