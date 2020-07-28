@@ -1,7 +1,7 @@
 const Command = require("../modules/Command.js");
 const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
-const db = require("../db.js");
+const db = require("../db/db.js");
 
 class Unmute extends Command {
   constructor(client) {

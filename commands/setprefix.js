@@ -1,5 +1,5 @@
 const Command = require("../modules/Command.js");
-const db = require("../db.js");
+const db = require("../db/db.js");
 
 class Setprefix extends Command {
   constructor(client) {

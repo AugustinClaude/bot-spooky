@@ -1,6 +1,6 @@
 const Command = require("../modules/Command.js");
 const { MessageEmbed } = require("discord.js");
-const db = require("../db.js");
+const db = require("../db/db.js");
 
 class Logs extends Command {
   constructor(client) {
@@ -9,7 +9,7 @@ class Logs extends Command {
       description: "Affiche les infos sur le channel de logs",
       usage: "logs",
       aliases: ["log", "logsinfo", "loginfo"],
-      permLevel: "Staff"
+      permLevel: "Staff",
     });
   }
 
@@ -30,7 +30,7 @@ class Logs extends Command {
 
     let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
-    db.query(getGuildSetting, function(err, results, fields) {
+    db.query(getGuildSetting, function (err, results, fields) {
       if (err) console.log(err.message);
       //console.log(results);
       let logChannel = message.guild.channels.cache.get(

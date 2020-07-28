@@ -2,7 +2,7 @@ const Command = require("../modules/Command.js");
 const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
 const ms = require("ms");
-const db = require("../db.js");
+const db = require("../db/db.js");
 
 class Ban extends Command {
   constructor(client) {

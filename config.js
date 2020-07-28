@@ -4,7 +4,7 @@ const config = {
     modLogChannel: "logs",
     modRole: "Mod",
     adminRole: "Staff",
-    systemNotice: "true"
+    systemNotice: "true",
   },
 
   permLevels: [
@@ -12,10 +12,11 @@ const config = {
     {
       level: 1,
       name: "Mod",
-      check: message => {
+      check: (message) => {
         try {
           const modRole = message.guild.roles.cache.find(
-            r => r.name.toLowerCase() === message.settings.modRole.toLowerCase()
+            (r) =>
+              r.name.toLowerCase() === message.settings.modRole.toLowerCase()
           );
           if (
             (modRole && message.member.roles.cache.has(modRole.id)) ||
@@ -25,36 +26,50 @@ const config = {
         } catch (e) {
           return false;
         }
-      }
+      },
     },
     {
       level: 2,
       name: "Staff",
-      check: message => {
+      check: (message) => {
         try {
           const adminRole = message.guild.roles.cache.find(
-            r =>
+            (r) =>
               r.name.toLowerCase() === message.settings.adminRole.toLowerCase()
           );
           if (
             (adminRole && message.member.roles.cache.has(adminRole.id)) ||
             message.member.hasPermission(["MANAGE_GUILD", "BAN_MEMBERS"], {
               checkAdmin: true,
-              checkOwner: false
+              checkOwner: false,
             })
           )
             return true;
         } catch (e) {
           return false;
         }
-      }
+      },
     },
     {
       level: 3,
       name: "Bot Owner",
-      check: message => message.client.appInfo.owner.id === message.author.id
-    }
-  ]
+      check: (message) => message.client.appInfo.owner.id === message.author.id,
+    },
+  ],
+
+  db: {
+    HOST: "",
+    USER: "",
+    PASSWORD: "",
+    DB: "",
+    dialect: "",
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
+  },
 };
 
 module.exports = config;
