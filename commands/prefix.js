@@ -21,6 +21,9 @@ class Prefix extends Command {
           message.author.displayAvatarURL({ dynamic: true })
         )
         .setThumbnail(this.client.user.displayAvatarURL())
+        .setDescription(
+          `Pour plus d'aide, faites \`${message.settings.prefix}help\``
+        )
         .addField("💻 **Préfix :**", `\`${message.settings.prefix}\``)
         .setColor("#ddaaff")
         .setFooter(
@@ -31,7 +34,7 @@ class Prefix extends Command {
 
       if (custom_prefix !== message.settings.prefix)
         prefEmbed.addField(
-          "🗂️ **Custom préfix** (modifiable avec la commande setprefix)",
+          "🗂️ **Préfix du serveur** (modifiable avec la commande setprefix)",
           `\`${custom_prefix}\``
         );
 

@@ -21,7 +21,7 @@ module.exports = class {
     // Paramètres DB
     let getGuildSetting = `SELECT * FROM guildSettings WHERE guildId = '${message.guild.id}';`;
 
-    db.query(getGuildSetting, function(err, results, fields) {
+    db.query(getGuildSetting, function (err, results, fields) {
       if (err) console.log(err.message);
       //console.log(results);
       if (results[0] == undefined) {
@@ -31,14 +31,14 @@ module.exports = class {
 
         let setDefaultSettings = `INSERT INTO guildSettings(guildId, guildName) VALUES('${message.guild.id}', '${message.guild.name}')`;
 
-        db.query(setDefaultSettings, function(err, results, fields) {
+        db.query(setDefaultSettings, function (err, results, fields) {
           if (err) console.log(err.message);
         });
       } else {
         if (results[0].guildName !== message.guild.name) {
           let updateGuildName = `UPDATE guildSettings SET guildName = '${message.guild.name}' WHERE guildSettings.guildId = '${message.guild.id}';`;
 
-          db.query(updateGuildName, function(err, results, fields) {
+          db.query(updateGuildName, function (err, results, fields) {
             if (err) {
               console.log(err.message);
             }
@@ -52,7 +52,7 @@ module.exports = class {
           if (results[0].logChannel_name !== logChannelName) {
             let updateLogChannelName = `UPDATE guildSettings SET logChannel_name = '${logChannelName}' WHERE guildSettings.guildId = '${message.guild.id}';`;
 
-            db.query(updateLogChannelName, function(err, results, fields) {
+            db.query(updateLogChannelName, function (err, results, fields) {
               if (err) {
                 console.log(err.message);
               }
@@ -68,7 +68,7 @@ module.exports = class {
           if (results[0].welcomeChannel_name !== welcomeChannelName) {
             let updateWelcomeChannelName = `UPDATE guildSettings SET welcomeChannel_name = '${welcomeChannelName}' WHERE guildSettings.guildId = '${message.guild.id}';`;
 
-            db.query(updateWelcomeChannelName, function(err, results, fields) {
+            db.query(updateWelcomeChannelName, function (err, results, fields) {
               if (err) {
                 console.log(err.message);
               }
@@ -105,6 +105,7 @@ module.exports = class {
             message.author.displayAvatarURL({ dynamic: true })
           )
           .setThumbnail(this.client.user.displayAvatarURL())
+          .setDescription(`Pour plus d'aide, faites \`${settings.prefix}help\``)
           .addField("💻 **Préfix :**", `\`${settings.prefix}\``)
           .setColor("#ddaaff")
           .setFooter(
@@ -115,7 +116,7 @@ module.exports = class {
 
         if (custom_prefix !== settings.prefix)
           prefEmbed.addField(
-            "🗂️ **Custom préfix** (modifiable avec la commande setprefix)",
+            "🗂️ **Préfix du serveur** (modifiable avec la commande setprefix)",
             `\`${custom_prefix}\``
           );
 
@@ -130,10 +131,7 @@ module.exports = class {
       else prefixL = custom_prefix.length;
 
       // Setup args
-      const args = message.content
-        .slice(prefixL)
-        .trim()
-        .split(/ +/g);
+      const args = message.content.slice(prefixL).trim().split(/ +/g);
       const command = args.shift().toLowerCase();
 
       // Setup cmd et permLevel
@@ -160,7 +158,8 @@ module.exports = class {
             .addField(
               "▶️ Votre niveau de permission",
               `**Niveau :** ${level} | **Nom :** ${
-                this.client.config.permLevels.find(l => l.level === level).name
+                this.client.config.permLevels.find((l) => l.level === level)
+                  .name
               }`
             )
             .addField(
@@ -191,7 +190,7 @@ module.exports = class {
       // Lancement de la commande
       this.client.logger.log(
         `${message.guild.name} | #${message.channel.name}:\n[${
-          this.client.config.permLevels.find(l => l.level === level).name
+          this.client.config.permLevels.find((l) => l.level === level).name
         }] ${message.author.username}#${message.author.discriminator} (ID: ${
           message.author.id
         }) a lancé la commande ${settings.prefix}${cmd.help.name} ${args.join(
